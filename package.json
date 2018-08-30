@@ -4,7 +4,7 @@
   "description": "Weather App",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node server.js"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "mocha": "^5.2.0",
     "mysql2": "^1.6.1",
     "sequelize": "^4.38.0"
   }
