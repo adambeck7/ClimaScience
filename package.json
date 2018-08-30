@@ -1,0 +1,26 @@
+{
+  "name": "climascience",
+  "version": "0.0.1",
+  "description": "Weather App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adambeck7/ClimaScience.git"
+  },
+  "author": "Adam Beck & Jack Ryan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adambeck7/ClimaScience/issues"
+  },
+  "homepage": "https://github.com/adambeck7/ClimaScience#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mysql2": "^1.6.1",
+    "sequelize": "^4.38.0"
+  }
+}
