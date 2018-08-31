@@ -17,7 +17,7 @@ module.exports = function(app) {
   });
 
   // maps route loads map.html
-  app.get("/maps", function(req, res) {
+  app.get("/map", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/map.html"));
   });
 };

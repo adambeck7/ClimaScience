@@ -19,6 +19,7 @@
   "homepage": "https://github.com/adambeck7/ClimaScience#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "dark-sky": "^1.1.4",
     "express": "^4.16.3",
     "mocha": "^5.2.0",
     "mysql2": "^1.6.1",
