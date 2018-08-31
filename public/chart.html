@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content='text/html; charset=UTF-8'>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#1a263d">
+    <title>ClimaScience Graphing</title>
+    
+    <!--CSS-->
+    <link href="min/plugin-min.css" type="text/css" rel="stylesheet">
+    <link href="min/custom-min.css" type="text/css" rel="stylesheet">
+    <style>
+        #chartarea {
+            height: 800px;
+            width: 100%;
+        }
+    </style>
+
+    <!--Scripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body id="top" class="scrollspy">
+
+    <!--Preloader-->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+
+    <!--Navigation-->
+    <div class="navbar-fixed">
+        <nav id="nav_f" class="default_color" role="navigation">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="#" id="logo-container" class="brand-logo">ClimaScience</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="#intro">Maps</a></li>
+                        <li><a href="#work">Historical Data</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <ul id="nav-mobile" class="side-nav">
+                        <li><a href="#intro">Service</a></li>
+                        <li><a href="#work">Work</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <h1 class="center header cd-headline letters type">
+                <img src="./img/climaScience-transparent.png" alt="ClimaScience Logo">
+            </h1>
+        </div>
+    </div>
+
+
+    <div id='chartarea' class="section scrollspy">
+        <div class="container">
+            <h2 class='center header text_h2'>The last 48 hours of weather data, visualized.</h2>
+            <canvas id='myChart'></canvas>
+        </div>
+    </div>
+
+    <script src='./js/chart.js'></script>
+</body>
+</html>
