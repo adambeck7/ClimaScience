@@ -1,5 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+var path = require('path');
 
 // Sets up the Express App
 // =============================================================
@@ -26,7 +27,8 @@ app.use(express.static("public"));
 const DarkSky = require("dark-sky");
 const darksky = new DarkSky("99f31f87aad858fab80ba47a8b0aaacc");
 
-app.get("/a", (req, res) => {
+
+app.get("/map", (req, res) => {
   darksky
     .options({
       latitude: 37.8267,

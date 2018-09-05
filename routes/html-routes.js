@@ -20,4 +20,8 @@ module.exports = function(app) {
   app.get("/map", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/map.html"));
   });
+
+  app.get('/chart', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/chart.html'));
+  });
 };
