@@ -83,66 +83,73 @@
                 <div class="col s12">
                     <div id='chartarea'>
                         <div class="row">
-                            <div class="input-field col s6">
+                            <div class="col s12">
+                                <p>
+                                    Type in any coordinate pair to view the raw data for the last 24 hours
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4">
                                 <input id='lat-input' v-model='lat' type="text" class="validate">
                                 <label for="lat-input">Latitude</label>
                             </div>
-                            <div class="input-field col s6">
+                            <div class="input-field col s4">
                                 <input id="lng-input" v-model="lng" type="text" class="validate">
                                 <label for="lng-input">Longitude</label>
+                            </div>
+                            <div class="col s4">
+                                <a class="waves-effect waves-light btn" @click="getLoc">Use My Location</a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s3">
-                                <input id="precipProbability" type="checkbox" value="precipProbability" v-model="select">
+                                <input @click="getData" id="precipProbability" type="checkbox" value="precipProbability" v-model="select">
                                 <label for="precipProbability">Precipitation Probability</label>
                             </div>
                             <div class="col s3">
-                                <input type="checkbox" value="apparentTemperature" name="apparentTemperature" id="apparentTemperature" v-model="select">
+                                <input @click="getData" type="checkbox" value="apparentTemperature" name="apparentTemperature" id="apparentTemperature" v-model="select">
                                 <label for="apparentTemperature">Apparent Temperature</label>
                             </div>
                             <div class="col s3">
-                                <input type="checkbox" value="ozone" name="ozone" id="ozone" v-model="select">
+                                <input @click="getData" type="checkbox" value="ozone" name="ozone" id="ozone" v-model="select">
                                 <label for="ozone">Ozone</label>
                             </div>
                             <div class="col s3">
-                                <input type="checkbox" value="cloudCover" name="cloudCover" id="cloudCover" v-model="select">
+                                <input @click="getData" type="checkbox" value="cloudCover" name="cloudCover" id="cloudCover" v-model="select">
                                 <label for="cloudCover">Cloud Cover</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s3">
-                                <input type="checkbox" value="dewPoint" name="dewPoint" id="dewPoint" v-model="select">
+                                <input @click='getData' type="checkbox" value="dewPoint" name="dewPoint" id="dewPoint" v-model="select">
                                 <label for="dewPoint">Dew Point</label>
                             </div>
                             <div class="col s3">
-                                <input type="checkbox" value="humidity" name="humidity" id="humidity" v-model="select">
+                                <input @click='getData' type="checkbox" value="humidity" name="humidity" id="humidity" v-model="select">
                                 <label for="humidity">Humidity</label>
                             </div>
                             <div class="col s3">
-                                <input type="checkbox" value="precipIntensity" name="precipIntensity" id="precipIntensity" v-model="select">
+                                <input @click="getData" type="checkbox" value="precipIntensity" name="precipIntensity" id="precipIntensity" v-model="select">
                                 <label for="precipIntensity">Precipitation Intensity</label>
                             </div>
                             <div class="col s3">
-                                <input type="checkbox" value="pressure" name="pressure" id="pressure" v-model="select">
+                                <input @click="getData" type="checkbox" value="pressure" name="pressure" id="pressure" v-model="select">
                                 <label for="pressure">Pressure</label>
                             </div>
-                        </div>
-                        <div class='row'>
-                            <button @click="getData" class="waves-effect waves-light btn-large">Get Data</button>
                         </div>
 
                         <table class="striped" id="table">
                             <thead>
                                 <tr>
                                     <th>Time</th>
-                                    <th>Data</th>
+                                    <th v-for='selection in select'>{{ selection }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for='datum in data'>
                                     <td>{{ datum.time }}</td>
-                                    <td>{{ datum.res }}</td>
+                                    <td v-for="res in datum.res">{{ res }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -153,7 +160,7 @@
 
     </div>
 
-    <script src="./js/chart.js"></script>
+    <!--<script src="./js/chart.js"></script>-->
     <script src="./js/datatable.js"></script>
 </body>
 </html>

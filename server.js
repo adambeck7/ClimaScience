@@ -21,12 +21,12 @@ app.use(express.static("public"));
 
 // Routes
 // =============================================================
-require("./routes/html-routes.js")(app);
+//require("./routes/html-routes.js")(app);
 
 const DarkSky = require("dark-sky");
 const darksky = new DarkSky("99f31f87aad858fab80ba47a8b0aaacc");
 
-app.get("/", (req, res) => {
+app.get("/a", (req, res) => {
   darksky
     .options({
       latitude: 37.8267,
