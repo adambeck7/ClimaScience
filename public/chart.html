@@ -24,6 +24,15 @@
             border-bottom: 2px #1c263b solid !important;
         }
 
+        #get-loc {
+            background-color: #d4c66d;
+            color: #1c263b;
+        }
+
+        #myChart {
+            background-color: white !important;
+        }
+
     </style>
 
     <!--Scripts-->
@@ -94,14 +103,14 @@
                         <div class="row">
                             <div class="input-field col s4">
                                 <input id='lat-input' v-model='lat' type="text" class="validate">
-                                <label for="lat-input">Latitude</label>
+                                <label id='lat-label' for="lat-input">Latitude</label>
                             </div>
                             <div class="input-field col s4">
                                 <input id="lng-input" v-model="lng" type="text" class="validate">
-                                <label for="lng-input">Longitude</label>
+                                <label id='lng-label' for="lng-input">Longitude</label>
                             </div>
                             <div class="col s4">
-                                <a class="waves-effect waves-light btn" @click="getLoc">Use My Location</a>
+                                <a class="waves-effect waves-light btn" id="get-loc" @click="getLoc">Use My Location</a>
                             </div>
                         </div>
                         <div class="row">

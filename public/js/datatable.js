@@ -51,6 +51,8 @@ new Vue({
     showPosition(position) {
       this.lat = position.coords.latitude;
       this.lng = position.coords.longitude;
+      $('#lat-label').addClass('active');
+      $('#lng-label').addClass('active')
     }
   }
 });
