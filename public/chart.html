@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content='text/html; charset=UTF-8'>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#1a263d">
+    <title>ClimaScience Graphing</title>
+
+    <!--CSS-->
+    <link href="min/plugin-min.css" type="text/css" rel="stylesheet">
+    <link href="min/custom-min.css" type="text/css" rel="stylesheet">
+    <style>
+        #chartarea {
+            height: 800px;
+            width: 100%;
+        }
+        .tablink {
+            color: #d4c66d !important;
+        }
+
+        .tablink:hover {
+            border-bottom: 2px #1c263b solid !important;
+        }
+
+    </style>
+
+    <!--Scripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="./js/materialize.min.js"></script>
+</head>
+
+<body id="top" class="scrollspy">
+
+    <!--Preloader-->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+
+    <!--Navigation-->
+    <div class="navbar-fixed">
+        <nav id="nav_f" class="default_color" role="navigation">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a href="#" id="logo-container" class="brand-logo">ClimaScience</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="./map.html">Maps</a></li>
+                        <li><a href="./chart.html">Historical Data</a></li>
+                        <li><a href="./index.html">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <ul id="nav-mobile" class="side-nav">
+                        <li><a href="./map.html">Maps</a></li>
+                        <li><a href="./chart.html">Historical Data</a></li>
+                        <li><a href="./index.html">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <h1 class="center header cd-headline letters type">
+                <img src="./img/climaScience-transparent.png" alt="ClimaScience Logo">
+            </h1>
+        </div>
+    </div>
+
+    <div id='chartarea' class="section scrollspy">
+        <div class="container">
+            <h2 class='center header text_h2'>The next 48 hours of weather data, visualized.</h2>
+            <canvas id='myChart'></canvas>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <div id='chartarea'>
+                        <div class="row">
+                            <div class="col s12">
+                                <p>
+                                    Type in any coordinate pair to view raw weather data for the next 48 hours in any
+                                    location, or press the Use My Location button to find data specific to your area.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <input id='lat-input' v-model='lat' type="text" class="validate">
+                                <label for="lat-input">Latitude</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input id="lng-input" v-model="lng" type="text" class="validate">
+                                <label for="lng-input">Longitude</label>
+                            </div>
+                            <div class="col s4">
+                                <a class="waves-effect waves-light btn" @click="getLoc">Use My Location</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s3">
+                                <input @click="getData" id="precipProbability" type="checkbox" value="precipProbability"
+                                    v-model="select">
+                                <label for="precipProbability">Precipitation Probability</label>
+                            </div>
+                            <div class="col s3">
+                                <input @click="getData" type="checkbox" value="apparentTemperature" name="apparentTemperature"
+                                    id="apparentTemperature" v-model="select">
+                                <label for="apparentTemperature">Apparent Temperature</label>
+                            </div>
+                            <div class="col s3">
+                                <input @click="getData" type="checkbox" value="ozone" name="ozone" id="ozone" v-model="select">
+                                <label for="ozone">Ozone</label>
+                            </div>
+                            <div class="col s3">
+                                <input @click="getData" type="checkbox" value="cloudCover" name="cloudCover" id="cloudCover"
+                                    v-model="select">
+                                <label for="cloudCover">Cloud Cover</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s3">
+                                <input @click='getData' type="checkbox" value="dewPoint" name="dewPoint" id="dewPoint"
+                                    v-model="select">
+                                <label for="dewPoint">Dew Point</label>
+                            </div>
+                            <div class="col s3">
+                                <input @click='getData' type="checkbox" value="humidity" name="humidity" id="humidity"
+                                    v-model="select">
+                                <label for="humidity">Humidity</label>
+                            </div>
+                            <div class="col s3">
+                                <input @click="getData" type="checkbox" value="precipIntensity" name="precipIntensity"
+                                    id="precipIntensity" v-model="select">
+                                <label for="precipIntensity">Precipitation Intensity</label>
+                            </div>
+                            <div class="col s3">
+                                <input @click="getData" type="checkbox" value="pressure" name="pressure" id="pressure"
+                                    v-model="select">
+                                <label for="pressure">Pressure</label>
+                            </div>
+                        </div>
+
+                        <table class="striped" id="table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th v-for='selection in select'>{{ selection }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for='datum in data'>
+                                    <td>{{ datum.time }}</td>
+                                    <td v-for="res in datum.res">{{ res }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="./js/chart.js"></script>
+    <script src="./js/datatable.js"></script>
+</body>
+
+</html>
