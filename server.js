@@ -5,7 +5,7 @@ var path = require('path');
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 8081;
 
 // Requiring our models for syncing
 var db = require("./models");
@@ -22,6 +22,7 @@ app.use(express.static("public"));
 
 // Routes
 // =============================================================
+<<<<<<< Updated upstream
 //require("./routes/html-routes.js")(app);
 
 const DarkSky = require("dark-sky");
@@ -70,6 +71,10 @@ app.get("/map", (req, res) => {
 //     next(err);
 //   }
 // });
+=======
+require("./routes/html-routes.js")(app);
+require("./routes/api-call1.js")(app);
+>>>>>>> Stashed changes
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
