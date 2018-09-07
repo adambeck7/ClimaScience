@@ -1,6 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var path = require('path');
+var path = require("path");
 
 // Sets up the Express App
 // =============================================================
@@ -22,12 +22,10 @@ app.use(express.static("public"));
 
 // Routes
 // =============================================================
-<<<<<<< Updated upstream
 //require("./routes/html-routes.js")(app);
 
 const DarkSky = require("dark-sky");
 const darksky = new DarkSky("99f31f87aad858fab80ba47a8b0aaacc");
-
 
 app.get("/map", (req, res) => {
   darksky
@@ -71,10 +69,6 @@ app.get("/map", (req, res) => {
 //     next(err);
 //   }
 // });
-=======
-require("./routes/html-routes.js")(app);
-require("./routes/api-call1.js")(app);
->>>>>>> Stashed changes
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
