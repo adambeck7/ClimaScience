@@ -1,31 +1,35 @@
 {
-  "name": "climascience",
-  "version": "0.0.1",
-  "description": "Weather App",
-  "main": "server.js",
+  "name": "nuxt-testinga",
+  "version": "1.0.0",
+  "description": "Nuxt.js project",
+  "author": "Jack Ryan <jack.dixon.ryan@gmail.com>",
+  "private": true,
   "scripts": {
-    "test": "mocha",
-    "start": "node server.js"
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt build && nuxt start",
+    "precommit": "npm run lint",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/adambeck7/ClimaScience.git"
-  },
-  "author": "Adam Beck & Jack Ryan",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/adambeck7/ClimaScience/issues"
-  },
-  "homepage": "https://github.com/adambeck7/ClimaScience#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.16.2",
     "body-parser": "^1.18.3",
-    "dark-sky": "^1.1.4",
-    "express": "^4.16.3",
-    "mocha": "^5.2.0",
-    "moment": "^2.22.2",
-    "mysql2": "^1.6.1",
-    "sequelize": "^4.38.0",
-    "vue-moment": "^4.0.0"
+    "cross-env": "^5.0.1",
+    "express": "^4.15.3",
+    "geoip-lite": "^1.3.2",
+    "nuxt": "latest",
+    "request": "^2.88.0",
+    "source-map-support": "^0.4.15"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^4.0.5",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

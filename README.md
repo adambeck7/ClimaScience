@@ -1,29 +1,18 @@
-# README Boilerplate
+# nuxt-testinga
 
-## Table of Contents
+> Nuxt.js project
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Support](#support)
-- [Contributing](#contributing)
+## Build Setup
 
-## Installation
+``` bash
+# install dependencies
+$ npm install # Or yarn install
 
-## Usage
+# serve with hot reload at localhost:3000
+$ npm run dev
 
-<!-- Replace the contents of `README.md` with your project's:
+# build for production and launch server
+$ npm start
+```
 
-- Name
-- Description
-- Installation instructions
-- Usage instructions
-- Support instructions
-- Contributing instructions -->
-
-## Support
-
-Please [open an issue](https://github.com/adambeck7/ClimaScience) for support.
-
-## Contributing
-
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/adambeck7/ClimaScience/compare/).
+For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
