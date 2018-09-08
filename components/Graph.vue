@@ -1,8 +1,10 @@
 <template>
     <div class="container">
         <h2 class='center header text_h2'>The next 48 hours of weather data, visualized.</h2>
+        <input v-model='lat'/>
+        <input v-model='lng'/>
+        <button @click='go'>GO</button>
         <p>{{ data }}</p>
-        
     </div>
 </template>
 
@@ -12,15 +14,19 @@ import axios from '~/plugins/axios'
 export default {
   data () {
     return {
-      data: null
+      data: null,
+      lat: '',
+      lng: ''
     }
   },
-  mounted () {
-    axios.get('/api/users').then((res) => {
-      this.data = res.data
-    }).catch((error) => {
-      error({statusCode: 404, message: 'Data not found'})
-    })
+  methods: {
+    go () {
+      axios.get('/api/loc/' + this.lat + ',' + this.lng).then((res) => {
+        this.data = res.data
+      }).catch((error) => {
+        error({statusCode: 404, message: 'Data not found'})
+      })
+    }
   }
 }
 </script>
