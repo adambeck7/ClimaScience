@@ -13,132 +13,130 @@
   </div>
 
   <!--Intro and service-->
-  <div id="intro" class="section scrollspy">
+  <div id="intro" class="section scrollspy forecastFont">
     <div class="container">
-      <div class="row">
-        <div class="col s12">
+      
+        <!--<div class="col s12">
           <form method="get">
             <label for="input">Latitude, Longitude</label>
             <input id="latlng" type="text">
             <button class="submit" type="submit">Submit text</button>
           </form>
-        </div>
-        <div id="app">
-          <div class="col s6 m2">
-            <h4 class="header center">{{ date | formatDate('YY-MM-DD') }}</h4>
-            <div class="card horizontal">
-              <div class="card-image">
+        </div>-->
+        <div class="row forecastRow">
+        <div id="app" class="center">
+          <div class="section">
+            <div class="col s6 m2">
+              <h5 class="header center forecastHeaders">{{ date | formatDate }}</h5>
+              <div class="card horizontal">
+                <div class="card-image">
 
-              </div>
-              <div class="card-stacked center">
-
-                <p>High: {{high}} </p>
-                <p>Low: {{low}}</p>
-                <p>Precip: {{precipChance}}%</p>
-
-                <i class="wi wi-night-sleet"></i>
-              </div>
-              <div class="card-action">
-                <p> {{summary}}</p>
-              </div>
-
-            </div>
-          </div>
-          <div class="col s6 m2">
-            <h4 class="header center">{{ date2 | formatDate('YY-MM-DD') }}</h4>
-            <div class="card horizontal">
-              <div class="card-image">
-
-              </div>
-              <div class="card-stacked center">
-
-                <p>High: {{high2}} </p>
-                <p>Low: {{low2}}</p>
-                <p>Precip: {{precipChance2}}%</p>
-
-                <i class="wi wi-night-sleet"></i>
-              </div>
-              <div class="card-action">
-                <p> {{summary2}}</p>
-              </div>
-
-            </div>
-          </div>
-          <div class="col s6 m2">
-            <h4 class="header center">{{ date3 | formatDate('YY-MM-DD') }}</h4>
-            <div class="card horizontal">
-              <div class="card-image">
-
-              </div>
-              <div class="card-stacked center">
-
-                <p>High: {{high3}} </p>
-                <p>Low: {{low3}}</p>
-                <p>Precip: {{precipChance3}}%</p>
-
-                <i class="wi wi-night-sleet"></i>
-              </div>
-              <div class="card-action">
-                <p> {{summary3}}</p>
-              </div>
-
-            </div>
-          </div>
-          <div class="col s6 m2">
-            <h4 class="header center">{{ date4 | formatDate('YY-MM-DD') }}</h4>
-            <div class="card horizontal">
-              <div class="card-image">
-
-              </div>
-              <div class="card-stacked center">
-
-                <p>High: {{high4}} </p>
-                <p>Low: {{low4}}</p>
-                <p>Precip: {{precipChance4}}%</p>
-
-                <i class="wi wi-night-sleet"></i>
-              </div>
-              <div class="card-action">
-                <p> {{summary4}}</p>
-              </div>
-
-            </div>
-          </div>
-          <div class="col s6 m2">
-            <h4 class="header center">{{ date5 | formatDate('YY-MM-DD') }}</h4>
-            <div class="card horizontal">
-              <div class="card-image">
-
-              </div>
-              <div class="card-stacked center">
-
-                <p>High: {{high5}} </p>
-                <p>Low: {{low5}}</p>
-                <p>Precip: {{precipChance5}}%</p>
-
-                <i class="wi wi-night-sleet"></i>
-              </div>
-              <div class="card-action">
-                <p> {{summary5}}</p>
-              </div>
-
-            </div>
-          </div>
-          <div>
-              <div class="row">
-                <div class="col s12 m12">
-                  <div id="map_canvas"></div>
                 </div>
+                <div class="card-stacked center">
+
+                  <p>&#8593<span class="high">{{Math.round(high)}}&#8457    </span> &#8595<span class="low">{{Math.round(low)}}</span>&#8457</p>
+                  <p>Precip: {{Math.round(precipChance)}}%</p>
+
+                  <i class="wi wi-night-sleet"></i>
+                </div>
+                <div class="card-action">
+                  <p> {{summary}}</p>
+                </div>
+
               </div>
+            </div>
+            <div class="col s6 m2">
+              <h5 class="header center forecastHeaders">{{ date2 | formatDate }}</h5>
+              <div class="card horizontal">
+                <div class="card-image">
 
-                  <!-- <iframe src="http://www.lightningmaps.org/?lang=en#m=oss;t=3;s=0;o=0;b=;ts=0;" frameborder="0"
-                  sandbox="allow-forms allow-scripts" height="1400" width="1300"></iframe> -->
+                </div>
+                <div class="card-stacked center">
 
+                  <p>&#8593<span class="high">{{Math.round(high2)}}&#8457    </span> &#8595<span class="low">{{Math.round(low2)}}</span>&#8457</p>
+                  <p>Precip: {{Math.round(precipChance2)}}%</p>
+
+                  <i class="wi wi-night-sleet"></i>
+                </div>
+                <div class="card-action">
+                  <p> {{summary2}}</p>
+                </div>
+
+              </div>
+            </div>
+            <div class="col s6 m2">
+              <h5 class="header center forecastHeaders">{{ date3 | formatDate }}</h5>
+              <div class="card horizontal">
+                <div class="card-image">
+
+                </div>
+                <div class="card-stacked center">
+
+                  <p>&#8593<span class="high">{{Math.round(high3)}}&#8457    </span> &#8595<span class="low">{{Math.round(low3)}}</span>&#8457</p>
+                  <p>Precip: {{Math.round(precipChance3)}}%</p>
+
+                  <i class="wi wi-night-sleet"></i>
+                </div>
+                <div class="card-action">
+                  <p> {{summary3}}</p>
+                </div>
+
+              </div>
+            </div>
+            <div class="col s6 m2">
+              <h5 class="header center forecastHeaders">{{ date4 | formatDate }}</h5>
+              <div class="card horizontal">
+                <div class="card-image">
+
+                </div>
+                <div class="card-stacked center">
+
+                  <p>&#8593<span class="high">{{Math.round(high4)}}&#8457    </span> &#8595<span class="low">{{Math.round(low4)}}</span>&#8457</p>
+                  <p>Precip: {{Math.round(precipChance4)}}%</p>
+
+                  <i class="wi wi-night-sleet"></i>
+                </div>
+                <div class="card-action">
+                  <p> {{summary4}}</p>
+                </div>
+
+              </div>
+            </div>
+            <div class="col s6 m2">
+              <h5 class="header center forecastHeaders">{{ date5 | formatDate }}</h5>
+              <div class="card horizontal">
+                <div class="card-image">
+
+                </div>
+                <div class="card-stacked center">
+
+                  <p>&#8593<span class="high">{{Math.round(high5)}}&#8457    </span> &#8595<span class="low">{{Math.round(low5)}}</span>&#8457</p>
+                  <p>Precip: {{Math.round(precipChance5)}}%</p>
+
+                  <i class="wi wi-night-sleet"></i>
+                </div>
+                <div class="card-action">
+                  <p> {{summary5}}</p>
+                </div>
+                
+              </div>
+        
+            </div>
           </div>
+           
+         
         </div>
       </div>
     </div>
   </div>
+  <div class="container">
+    <div class="row">
+        <div class="col s12 center">
+
+            <div id="map_canvas"></div>
+        </div>
+    </div>
+</div>
 </div>
 
 </template>
@@ -298,7 +296,7 @@ export default {
   filters: {
     formatDate: function (val) {
       if (val) {
-        return moment(String(val)).format('M/DD/YY')
+        return moment(String(val)).format('ddd M/D')
       }
     }
   }
@@ -306,9 +304,27 @@ export default {
 // getLocation()
 </script>
 <style>
-    #map_canvas {
-            height: 80%;
-            width: 80%;
-            position:absolute;
-        }
+#map_canvas {
+  width: 100%; 
+  height: 30em;
+	margin: 0 0 2em 0;
+}
+.forecastHeaders{
+  color:#1a263d;
+  font-weight:300;
+}
+.forecastRow{
+  margin-right: -14.75rem !important;
+}
+.forecastFont{
+  font-size: 1.2rem
+}
+.high{
+  color: red;
+  margin-right: .5rem
+}
+.low{
+  color: blue;
+
+}
 </style>

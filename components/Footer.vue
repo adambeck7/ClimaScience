@@ -3,7 +3,7 @@
     <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <form class="col s12" action="contact.php" method="post">
+                    <form class="col s12" action="mailto:adambeck7@gmail.com" method="post">
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="mdi-action-account-circle prefix white-text"></i>
