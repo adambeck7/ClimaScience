@@ -124,24 +124,21 @@
 
             </div>
           </div>
-       <div>
-        <div class="row">
-          <div class="col s12 m12">
-            <div id="map_canvas"></div>
+          <div>
+              <div class="row">
+                <div class="col s12 m12">
+                  <div id="map_canvas"></div>
+                </div>
+              </div>
+
+                  <!-- <iframe src="http://www.lightningmaps.org/?lang=en#m=oss;t=3;s=0;o=0;b=;ts=0;" frameborder="0"
+                  sandbox="allow-forms allow-scripts" height="1400" width="1300"></iframe> -->
+
           </div>
         </div>
-
-            <!-- <iframe src="http://www.lightningmaps.org/?lang=en#m=oss;t=3;s=0;o=0;b=;ts=0;" frameborder="0"
-            sandbox="allow-forms allow-scripts" height="1400" width="1300"></iframe> -->
-
       </div>
-
     </div>
-      
   </div>
-
-</div>
-</div>
 </div>
 
 </template>
