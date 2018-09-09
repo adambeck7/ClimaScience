@@ -4,21 +4,6 @@
 
 
 <div>
-
-
-  <!--Hero-->
-  <!-- <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <h1 class="text_h center header cd-headline letters type">
-        <span>We Love</span>
-        <span class="cd-words-wrapper waiting">
-          <b class="is-visible">rain</b>
-          <b>snow</b>
-          <b>sunshine</b>
-        </span>
-      </h1>
-    </div>
-  </div> -->
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <h1 class="center header cd-headline letters type">
@@ -149,16 +134,16 @@
             <!-- <iframe src="http://www.lightningmaps.org/?lang=en#m=oss;t=3;s=0;o=0;b=;ts=0;" frameborder="0"
             sandbox="allow-forms allow-scripts" height="1400" width="1300"></iframe> -->
 
-          </div>
-
-        </div>
-      
       </div>
 
     </div>
+      
   </div>
+
 </div>
 </div>
+</div>
+
 </template>
 
 <script>
