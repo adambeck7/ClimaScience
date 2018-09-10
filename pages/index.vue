@@ -205,43 +205,44 @@ export default {
     getPosts () {
       // let lat = position.coords.latitude
       // let lng = position.coords.longitude
-      let url =
-        'https://api.darksky.net/forecast/99f31f87aad858fab80ba47a8b0aaacc/39.7392,-104.9903'
+      // let url =
+      //   'https://api.darksky.net/forecast/99f31f87aad858fab80ba47a8b0aaacc/39.7392,-104.9903'
       // 'https://api.darksky.net/forecast/99f31f87aad858fab80ba47a8b0aaacc/' +
       // lat +
       // ',' +
       // lng
-      console.log(url)
-      axios.get(url).then(response => {
-        this.high = response.data.daily.data[0].apparentTemperatureHigh
-        this.low = response.data.daily.data[0].apparentTemperatureLow
-        this.precipChance = response.data.daily.data[0].precipProbability * 100
-        this.summary = response.data.daily.data[0].summary
-        this.date = new Date(response.data.daily.data[0].time * 1000)
-        this.high2 = response.data.daily.data[1].apparentTemperatureHigh
-        this.low2 = response.data.daily.data[1].apparentTemperatureLow
+      let latlng = '39.7392,-104.9903'
+      axios.get('/api/loc/' + latlng).then(res => {
+        this.data = res.data
+        this.high = res.data.daily.data[0].apparentTemperatureHigh
+        this.low = res.data.daily.data[0].apparentTemperatureLow
+        this.precipChance = res.data.daily.data[0].precipProbability * 100
+        this.summary = res.data.daily.data[0].summary
+        this.date = new Date(res.data.daily.data[0].time * 1000)
+        this.high2 = res.data.daily.data[1].apparentTemperatureHigh
+        this.low2 = res.data.daily.data[1].apparentTemperatureLow
         this.precipChance2 =
-            response.data.daily.data[1].precipProbability * 100
-        this.summary2 = response.data.daily.data[1].summary
-        this.date2 = new Date(response.data.daily.data[1].time * 1000)
-        this.high3 = response.data.daily.data[2].apparentTemperatureHigh
-        this.low3 = response.data.daily.data[2].apparentTemperatureLow
+            res.data.daily.data[1].precipProbability * 100
+        this.summary2 = res.data.daily.data[1].summary
+        this.date2 = new Date(res.data.daily.data[1].time * 1000)
+        this.high3 = res.data.daily.data[2].apparentTemperatureHigh
+        this.low3 = res.data.daily.data[2].apparentTemperatureLow
         this.precipChance3 =
-            response.data.daily.data[2].precipProbability * 100
-        this.summary3 = response.data.daily.data[2].summary
-        this.date3 = new Date(response.data.daily.data[2].time * 1000)
-        this.high4 = response.data.daily.data[3].apparentTemperatureHigh
-        this.low4 = response.data.daily.data[3].apparentTemperatureLow
+            res.data.daily.data[2].precipProbability * 100
+        this.summary3 = res.data.daily.data[2].summary
+        this.date3 = new Date(res.data.daily.data[2].time * 1000)
+        this.high4 = res.data.daily.data[3].apparentTemperatureHigh
+        this.low4 = res.data.daily.data[3].apparentTemperatureLow
         this.precipChance4 =
-            response.data.daily.data[3].precipProbability * 100
-        this.summary4 = response.data.daily.data[3].summary
-        this.date4 = new Date(response.data.daily.data[3].time * 1000)
-        this.high5 = response.data.daily.data[4].apparentTemperatureHigh
-        this.low5 = response.data.daily.data[4].apparentTemperatureLow
+            res.data.daily.data[3].precipProbability * 100
+        this.summary4 = res.data.daily.data[3].summary
+        this.date4 = new Date(res.data.daily.data[3].time * 1000)
+        this.high5 = res.data.daily.data[4].apparentTemperatureHigh
+        this.low5 = res.data.daily.data[4].apparentTemperatureLow
         this.precipChance5 =
-            response.data.daily.data[4].precipProbability * 100
-        this.summary5 = response.data.daily.data[4].summary
-        this.date5 = new Date(response.data.daily.data[4].time * 1000)
+            res.data.daily.data[4].precipProbability * 100
+        this.summary5 = res.data.daily.data[4].summary
+        this.date5 = new Date(res.data.daily.data[4].time * 1000)
       })
         .catch(error => {
           console.log(error)
