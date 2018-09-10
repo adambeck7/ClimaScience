@@ -11,8 +11,6 @@ router.use(bodyParser.json())
 /* GET users listing. */
 router.get('/loc/:latlng', function(req, res, next) {
   let latlng = req.params.latlng
-  sessionStorage.setItem('latlon', req.params.latlng)
-  console.log('session', sessionStorage.getItem('latlon'))
   request({
     uri:
       'https://api.darksky.net/forecast/f69b34e59a6ce824a619446dcdeb0996/' +
