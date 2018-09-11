@@ -24,8 +24,11 @@
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
     "moment": "^2.22.2",
+    "mysql2": "^1.6.1",
     "nuxt": "^1.4.2",
     "request": "^2.88.0",
+    "sequelize": "^4.38.0",
+    "sequelize-cli": "^4.1.1",
     "source-map-support": "^0.4.15",
     "vue-chartjs": "^3.4.0",
     "vue-moment": "^4.0.0"
