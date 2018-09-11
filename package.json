@@ -8,6 +8,11 @@
     "node": "10.8.0",
     "npm": "6.4.0"
   },
+  "config": {
+    "nuxt": {
+      "port": "process.env.PORT || 8080"
+    }
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
@@ -45,10 +50,5 @@
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1"
-  },
-  "config": {
-    "nuxt": {
-      "port": "process.env.PORT"
-    }
   }
 }
