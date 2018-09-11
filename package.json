@@ -8,13 +8,8 @@
     "node": "10.8.0",
     "npm": "6.4.0"
   },
-  "config": {
-    "nuxt": {
-      "port": "process.env.PORT || 8080"
-    }
-  },
   "scripts": {
-    "dev": "nuxt",
+    "dev": "NUXT_PORT=process.env.PORT nuxt",
     "build": "nuxt build",
     "start": "nuxt build && nuxt start",
     "precommit": "npm run lint",
