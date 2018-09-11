@@ -8,7 +8,7 @@ const router = Router()
 router.use(bodyParser.urlencoded({ extended: true }))
 router.use(bodyParser.json())
 
-/* GET users listing. */
+/* GET weather data based on lat/long--a way of bypassing CORS.. */
 router.get('/loc/:latlng', function(req, res, next) {
   let latlng = req.params.latlng
   request({
@@ -16,6 +16,30 @@ router.get('/loc/:latlng', function(req, res, next) {
       'https://api.darksky.net/forecast/f69b34e59a6ce824a619446dcdeb0996/' +
       latlng
   }).pipe(res)
+})
+
+const db = require('../models')
+
+// get route for data saves.
+router.get('/data', (req, res) => {
+  db.save.findAll()
+    .then(allData => {
+      res.json(allData)
+    })
+})
+
+// post route for data saves.
+router.post('/data', (req, res) => {
+  db.save.create({
+    data: req.body.data
+  })
+  .then(dbPost => {
+    res.json(dbPost)
+  })
+})
+
+db.sequelize.sync({ force: true }).then(() => {
+  console.log('synced.')
 })
 
 module.exports = router
