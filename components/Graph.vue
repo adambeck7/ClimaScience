@@ -1,31 +1,49 @@
 <template>
-    <div class="container">
+  <div class="container">
+    <div class="row">
       <div class="col s12">
-          <h2 class='center header text_h2'>The next 48 hours of weather data, visualized.</h2>
-          <div class="input-field col s4">
-            <a class="waves-effect waves-light btn" @click="getLocation"> Use my Location</a>
-          </div>
-          <div class="row">
-          <div class="input-field col s6">
-            <input class="validate" type="text" v-model='lat' id="lat"/>
-            <label for="lat" class="label">Latitude</label>
-          </div>
-          <div class="input-field col s6">
-            <input class="validate" type="text" id="lng" v-model="lng"/>
-            <label for="lng" class="label">Longitude</label>
-          </div>
-        </div>
-        <div class='row'>
-          <div v-for="option in options" v-bind:key="option" class="input-field col s4">
-            <input type="checkbox" :value="option" :id="option" v-model="selected" @click='go'/>
-            <label :for="option">{{ option }}</label>
-          </div>
+        <h2 class='center header text_h2'>The next 48 hours of weather data, visualized.</h2>
+        <div class="input-field col s4">
+          <a class="waves-effect waves-light btn" @click="getLocation"> Use my Location</a>
         </div>
       </div>
-        <div class="container" id="chart">
-        <temp v-if="ran" :data='weatherData' :time='time'/>
-        </div>
     </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input class="validate" type="text" v-model='lat' id="lat"/>
+        <label for="lat" class="label">Latitude</label>
+      </div>
+      <div class="input-field col s6">
+        <input class="validate" type="text" id="lng" v-model="lng"/>
+        <label for="lng" class="label">Longitude</label>
+      </div>
+    </div>
+    <div class="row">
+      <div v-for="option in options" v-bind:key="option" class="input-field col s4">
+        <input type="checkbox" :value="option" :id="option" v-model="selected" @click='go'/>
+        <label :for="option">{{ option }}</label>
+      </div>
+    </div>
+    <div class="row">
+      <temp v-if="ran" :data='weatherData' :time='time'/>
+    </div>
+    <div class="row">
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th v-for="select in selected" v-bind:key="select">{{ select }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="ind in indeces"  v-bind:key="ind">
+            <td>{{ time[ind] }}</td>
+            <td v-for="item in weatherData" v-bind:key="item">{{ item.data[ind] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,9 +54,9 @@ export default {
   components: { Temp },
   data () {
     return {
-      temp: [],
       weatherData: [],
       time: [],
+      indeces: [],
       lat: '',
       lng: '',
       ran: false,
@@ -52,6 +70,7 @@ export default {
       this.ran = false
       this.weatherData = []
       axios.get('/api/loc/' + this.lat + ',' + this.lng).then((res) => {
+        let ind = -1
         let formattedTime = []
         // for each checkbox selected...
         for (let j = 0; j < this.selected.length; j++) {
@@ -71,12 +90,13 @@ export default {
           this.weatherData.push(dataToPass)
         }
         for (let k = 0; k < res.data.hourly.data.length; k++) {
-          this.temp.push(res.data.hourly.data[k].temperature)
           let time = new Date(res.data.hourly.data[k].time * 1000)
           let hours = time.getHours()
           let minutes = '0' + time.getMinutes()
           let formatted = hours + ':' + minutes
           formattedTime.push(formatted)
+          ind++
+          this.indeces.push(ind)
         }
 
         this.time = formattedTime
