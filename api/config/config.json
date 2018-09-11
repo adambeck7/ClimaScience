@@ -14,9 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
+    "use_env_variable": "climaScience",
+    "username": "null",
+    "password": "null",
+    "database": "climaScience",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
