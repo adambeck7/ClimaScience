@@ -16,13 +16,13 @@
   <div id="intro" class="section scrollspy forecastFont">
     <div class="container">
       
-        <!--<div class="col s12">
-          <form method="get">
-            <label for="input">Latitude, Longitude</label>
-            <input id="latlng" type="text">
-            <button class="submit" type="submit">Submit text</button>
-          </form>
-        </div>-->
+       <div>
+        <h2 class='center header text_h2'>location</h2>
+        <input v-model='geo'/>
+        <button @click='geoCoder'>GO</button> 
+        <button @click='getPosts'>Get posts</button> 
+          <!--<p>{{ geo }}</p>-->
+    </div>
         <div class="row forecastRow">
         <div id="app" class="center">
           <div class="section">
@@ -187,11 +187,13 @@ export default {
       date5: null,
       lat: '',
       lon: '',
+      geo: '',
+      latlon: '',
       mapLoaded: false
     }
   },
   mounted: function () {
-    this.getPosts()
+    this.geoCoder()
     this.buildMap()
   },
   //   head () {
@@ -202,17 +204,20 @@ export default {
   //     }
   //   },
   methods: {
+    geoCoder () {
+      console.log('geocoder runs!')
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.geo + '&key=AIzaSyBgPq_-8pPHqIlL9YaQCl8qLHcCr9jE-A8').then(res => {
+        console.log(res)
+        this.lat = res.data.results[0].geometry.location.lat
+        this.lon = res.data.results[0].geometry.location.lng
+        this.latlon = this.lat + ',' + this.lon
+        console.log('TCL: -----------------------------------')
+        console.log('TCL: geoCoder -> this.latlon', this.latlon)
+        console.log('TCL: -----------------------------------')
+      })
+    },
     getPosts () {
-      // let lat = position.coords.latitude
-      // let lng = position.coords.longitude
-      // let url =
-      //   'https://api.darksky.net/forecast/99f31f87aad858fab80ba47a8b0aaacc/39.7392,-104.9903'
-      // 'https://api.darksky.net/forecast/99f31f87aad858fab80ba47a8b0aaacc/' +
-      // lat +
-      // ',' +
-      // lng
-      let latlng = '39.7392,-104.9903'
-      axios.get('/api/loc/' + latlng).then(res => {
+      axios.get('/api/loc/' + this.latlon).then(res => {
         this.data = res.data
         this.high = res.data.daily.data[0].apparentTemperatureHigh
         this.low = res.data.daily.data[0].apparentTemperatureLow
