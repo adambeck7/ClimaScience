@@ -38,7 +38,7 @@
         <tbody>
           <tr v-for="ind in indeces"  v-bind:key="ind">
             <td>{{ time[ind] }}</td>
-            <td v-for="item in weatherData" v-bind:key="item">{{ item.data[ind] }}</td>
+            <td v-for="item in weatherData" v-bind:key="item" :data='item.data[ind]' :label='item.label' @click='getDatum'>{{ item.data[ind] }}</td>
           </tr>
         </tbody>
       </table>
@@ -118,6 +118,21 @@ export default {
       let labels = document.getElementsByClassName('label')
       labels[0].classList.add('active')
       labels[1].classList.add('active')
+    },
+    getDatum (event) {
+      let element = event.currentTarget
+      let data = element.getAttribute('data')
+      let label = element.getAttribute('label')
+      axios.post('/api/data', {
+        data: data,
+        label: label
+      })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }
