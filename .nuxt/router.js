@@ -3,8 +3,11 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _6d9e406f = () => import('../pages/one.vue' /* webpackChunkName: "pages/one" */).then(m => m.default || m)
+const _f3f41d56 = () => import('../pages/two.vue' /* webpackChunkName: "pages/two" */).then(m => m.default || m)
+const _798a9eca = () => import('../pages/graphing.vue' /* webpackChunkName: "pages/graphing" */).then(m => m.default || m)
 const _0eadf1d6 = () => import('../pages/about.vue' /* webpackChunkName: "pages/about" */).then(m => m.default || m)
+const _7d68111b = () => import('../pages/historicalData.vue' /* webpackChunkName: "pages/historicalData" */).then(m => m.default || m)
+const _6d9e406f = () => import('../pages/one.vue' /* webpackChunkName: "pages/one" */).then(m => m.default || m)
 const _2e65cc9b = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
@@ -66,14 +69,29 @@ export function createRouter () {
     scrollBehavior,
     routes: [
 		{
-			path: "/one",
-			component: _6d9e406f,
-			name: "one"
+			path: "/two",
+			component: _f3f41d56,
+			name: "two"
+		},
+		{
+			path: "/graphing",
+			component: _798a9eca,
+			name: "graphing"
 		},
 		{
 			path: "/about",
 			component: _0eadf1d6,
 			name: "about"
+		},
+		{
+			path: "/historicalData",
+			component: _7d68111b,
+			name: "historicalData"
+		},
+		{
+			path: "/one",
+			component: _6d9e406f,
+			name: "one"
 		},
 		{
 			path: "/",

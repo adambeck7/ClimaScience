@@ -17,25 +17,34 @@ router.get('/loc/:latlng', function(req, res, next) {
       latlng
   }).pipe(res)
 })
+router.get('/two/', function(req, res, next) {
+  request({
+    url: 'https://www.ncdc.noaa.gov/cdo-web/api/v2/datasets',
+    headers: { token: rNQjHCAegOQyxyoXVDrUiKXwWHIOmECF },
+    function(result) {
+      console.log(result)
+    }
+  }).pipe(res)
+})
 
 const db = require('../models')
 
 // get route for data saves.
 router.get('/data', (req, res) => {
-  db.save.findAll()
-    .then(allData => {
-      res.json(allData)
-    })
+  db.save.findAll().then(allData => {
+    res.json(allData)
+  })
 })
 
 // post route for data saves.
 router.post('/data', (req, res) => {
-  db.save.create({
-    data: req.body.data
-  })
-  .then(dbPost => {
-    res.json(dbPost)
-  })
+  db.save
+    .create({
+      data: req.body.data
+    })
+    .then(dbPost => {
+      res.json(dbPost)
+    })
 })
 
 db.sequelize.sync({ force: true }).then(() => {
