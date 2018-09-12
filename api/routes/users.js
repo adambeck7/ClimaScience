@@ -17,6 +17,15 @@ router.get('/loc/:latlng', function(req, res, next) {
       latlng
   }).pipe(res)
 })
+router.get('/two/', function(req, res, next) {
+  request({
+    url: 'https://www.ncdc.noaa.gov/cdo-web/api/v2/datasets',
+    headers: { token: rNQjHCAegOQyxyoXVDrUiKXwWHIOmECF },
+    function(result) {
+      console.log(result)
+    }
+  }).pipe(res)
+})
 
 router.get('/two/', function(req, res, next) {
   request({
@@ -41,8 +50,12 @@ router.get('/data', (req, res) => {
 router.post('/data', (req, res) => {
   db.save
     .create({
+<<<<<<< Updated upstream
       data: req.body.data,
       label: req.body.label
+=======
+      data: req.body.data
+>>>>>>> Stashed changes
     })
     .then(dbPost => {
       res.json(dbPost)
