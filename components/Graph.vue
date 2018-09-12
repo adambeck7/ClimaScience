@@ -3,23 +3,23 @@
     <div class="row">
       <div class="col s12">
         <h2 class='center header text_h2'>The next 48 hours of weather data, visualized.</h2>
-        <div class="input-field col s4">
-          <a class="waves-effect waves-light btn" @click="getLocation"> Use my Location</a>
+        <div class="input-field col s12 l6 offset-l3">
+          <a class="waves-effect waves-light btn" id="getloc" @click="getLocation"> Use my Location</a>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s6">
         <input class="validate" type="text" v-model='lat' id="lat"/>
-        <label for="lat" class="label">Latitude</label>
+        <label for="lat" class="label active">Latitude</label>
       </div>
       <div class="input-field col s6">
         <input class="validate" type="text" id="lng" v-model="lng"/>
-        <label for="lng" class="label">Longitude</label>
+        <label for="lng" class="label active">Longitude</label>
       </div>
     </div>
     <div class="row">
-      <div v-for="option in options" v-bind:key="option" class="input-field col s4">
+      <div v-for="option in options" v-bind:key="option" class="input-field col m4 s6 l3">
         <input type="checkbox" :value="option" :id="option" v-model="selected" @click='go'/>
         <label :for="option">{{ option }}</label>
       </div>
@@ -38,7 +38,7 @@
         <tbody>
           <tr v-for="ind in indeces"  v-bind:key="ind">
             <td>{{ time[ind] }}</td>
-            <td v-for="item in weatherData" v-bind:key="item" :data='item.data[ind]' :label='item.label' @click='getDatum'>{{ item.data[ind] }}</td>
+            <td v-for="item in weatherData" v-bind:key="item" :data='item.data[ind]' :label='item.label' @click='getDatum'><p>{{ item.data[ind] }}</p></td>
           </tr>
         </tbody>
       </table>
@@ -115,9 +115,6 @@ export default {
     showPosition (position) {
       this.lat = position.coords.latitude
       this.lng = position.coords.longitude
-      let labels = document.getElementsByClassName('label')
-      labels[0].classList.add('active')
-      labels[1].classList.add('active')
     },
     getDatum (event) {
       let element = event.currentTarget
@@ -137,3 +134,17 @@ export default {
   }
 }
 </script>
+
+<style>
+td p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#getloc {
+  width: 100%;
+  color: #1c263b;
+  background-color: darkkhaki
+}
+
+</style>
