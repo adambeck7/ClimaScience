@@ -1,7 +1,9 @@
 module.exports = {
   /*
   ** Headers of the page
-  */
+  */ env: {
+    GEOCODE_API_KEY: 'AIzaSyBgPq_-8pPHqIlL9YaQCl8qLHcCr9jE-A8'
+  },
   head: {
     title: 'ClimaScience',
     meta: [

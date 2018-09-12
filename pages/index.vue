@@ -40,6 +40,7 @@
 
                   <p>&#8593<span class="high">{{Math.round(high)}}&#8457    </span> &#8595<span class="low">{{Math.round(low)}}</span>&#8457</p>
                   <p>Precip: {{Math.round(precipChance)}}%</p>
+                  <p>env: {{ env }}</p>
 
                   <i class="wi wi-night-sleet"></i>
                 </div>
@@ -164,6 +165,7 @@ import moment from 'moment'
 export default {
   data () {
     return {
+      env: process.env.GEOCODE_API_KEY,
       curTemp: null,
       curFeelsLike: null,
       curIcon: null,
@@ -225,6 +227,7 @@ export default {
   methods: {
     geoCoder () {
       console.log('geocoder runs!')
+      console.log('geo api key:', process.env.GEOCODE_API_KEY)
       axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.geo + '&key=AIzaSyBgPq_-8pPHqIlL9YaQCl8qLHcCr9jE-A8').then(res => {
         console.log(res)
         this.lat = res.data.results[0].geometry.location.lat

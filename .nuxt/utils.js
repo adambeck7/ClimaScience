@@ -120,7 +120,7 @@ export async function setContext(app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {}
+      env: {"GEOCODE_API_KEY":"AIzaSyBgPq_-8pPHqIlL9YaQCl8qLHcCr9jE-A8"}
     }
     // Only set once
     if (context.req) app.context.req = context.req
