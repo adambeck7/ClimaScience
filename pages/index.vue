@@ -16,15 +16,19 @@
   <div id="intro" class="section scrollspy forecastFont">
     <div class="container">
       
-       <div>
-        <h2 class='center header text_h2'>location</h2>
+       <div class="center">
+      
         <input v-model='geo'/>
         <button @click='geoCoder'>GO</button> 
-        <button @click='getPosts'>Get posts</button> 
+        <button @click='getPosts'>Get Forecast</button> 
           <!--<p>{{ geo }}</p>-->
     </div>
         <div class="row forecastRow">
         <div id="app" class="center">
+        <div class="section">
+
+        </div>
+
           <div class="section">
             <div class="col s6 m2">
               <h5 class="header center forecastHeaders">{{ date | formatDate }}</h5>
@@ -160,6 +164,21 @@ import moment from 'moment'
 export default {
   data () {
     return {
+      curTemp: null,
+      curFeelsLike: null,
+      curIcon: null,
+      curHumid: null,
+      curOzone: null,
+      curWindBearing: null,
+      curWindGust: null,
+      curWindSpeed: null,
+      curVis: null,
+      curSummary: null,
+      curPrecipIntensity: null,
+      curPrecipProb: null,
+      curUV: null,
+      nearestStormBearing: null,
+      nearestStormDistance: null,
       high: null,
       low: null,
       precipChance: null,
@@ -218,7 +237,21 @@ export default {
     },
     getPosts () {
       axios.get('/api/loc/' + this.latlon).then(res => {
-        this.data = res.data
+        this.curTemp = res.data.currently.temperature
+        this.curFeelsLike = res.data.currently.apparentTemperature
+        this.curIcon = res.data.currently.icon
+        this.curHumid = res.data.currently
+        this.curOzone = res.data.currently
+        this.curWindBearing = res.data.currently
+        this.curWindGust = res.data.currently
+        this.curWindSpeed = res.data.currently
+        this.curVis = res.data.currently
+        this.curSummary = res.data.currently
+        this.curPrecipIntensity = res.data.currently
+        this.curPrecipProb = res.data.currently
+        this.curUV = res.data.currently
+        this.nearestStormBearing = res.data.currently
+        this.nearestStormDistance = res.data.currently
         this.high = res.data.daily.data[0].apparentTemperatureHigh
         this.low = res.data.daily.data[0].apparentTemperatureLow
         this.precipChance = res.data.daily.data[0].precipProbability * 100
