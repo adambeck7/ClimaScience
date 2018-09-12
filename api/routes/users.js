@@ -17,6 +17,7 @@ router.get('/loc/:latlng', function(req, res, next) {
       latlng
   }).pipe(res)
 })
+
 router.get('/two/', function(req, res, next) {
   request({
     url: 'https://www.ncdc.noaa.gov/cdo-web/api/v2/datasets',
@@ -40,7 +41,8 @@ router.get('/data', (req, res) => {
 router.post('/data', (req, res) => {
   db.save
     .create({
-      data: req.body.data
+      data: req.body.data,
+      label: req.body.label
     })
     .then(dbPost => {
       res.json(dbPost)
