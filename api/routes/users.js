@@ -50,12 +50,8 @@ router.get('/data', (req, res) => {
 router.post('/data', (req, res) => {
   db.save
     .create({
-<<<<<<< Updated upstream
       data: req.body.data,
       label: req.body.label
-=======
-      data: req.body.data
->>>>>>> Stashed changes
     })
     .then(dbPost => {
       res.json(dbPost)
