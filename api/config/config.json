@@ -4,10 +4,7 @@
     "password": "Gl0rf1&d3l",
     "database": "climaScience",
     "host": "127.0.0.1",
-    "dialect": "mysql",
-    "env": {
-      "GEOCODE_API_KEY": "AIzaSyBgPq_-8pPHqIlL9YaQCl8qLHcCr9jE-A8"
-    }
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",

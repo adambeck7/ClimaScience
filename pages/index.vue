@@ -22,13 +22,17 @@
         <button @click='geoCoder'>GO</button> 
         <button @click='getPosts'>Get Forecast</button> 
           <!--<p>{{ geo }}</p>-->
-    </div>
-        <div class="row forecastRow">
-        <div id="app" class="center">
-        <div class="section">
-
+      </div>
+      <div class="section">
+        <div class="col s12 m7">
+          <div class="col s2 m1">
+            <p class="currentTemp">Currently: {{ Math.round(curTemp) }}&#8457</p>
+          </div>
         </div>
+      </div>
 
+      <div class="row forecastRow">
+        <div id="app" class="center">
           <div class="section">
             <div class="col s6 m2">
               <h5 class="header center forecastHeaders">{{ date | formatDate }}</h5>
@@ -40,7 +44,6 @@
 
                   <p>&#8593<span class="high">{{Math.round(high)}}&#8457    </span> &#8595<span class="low">{{Math.round(low)}}</span>&#8457</p>
                   <p>Precip: {{Math.round(precipChance)}}%</p>
-                  <p>env: {{ env }}</p>
 
                   <i class="wi wi-night-sleet"></i>
                 </div>
@@ -226,20 +229,17 @@ export default {
   //   },
   methods: {
     geoCoder () {
-      console.log('geocoder runs!')
-      console.log('geo api key:', process.env.GEOCODE_API_KEY)
-      axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.geo + '&key=AIzaSyBgPq_-8pPHqIlL9YaQCl8qLHcCr9jE-A8').then(res => {
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + this.geo + '&key=' + process.env.GEOCODE_API_KEY).then(res => {
         console.log(res)
         this.lat = res.data.results[0].geometry.location.lat
         this.lon = res.data.results[0].geometry.location.lng
         this.latlon = this.lat + ',' + this.lon
-        console.log('TCL: -----------------------------------')
-        console.log('TCL: geoCoder -> this.latlon', this.latlon)
-        console.log('TCL: -----------------------------------')
       })
     },
     getPosts () {
-      axios.get('/api/loc/' + this.latlon).then(res => {
+      // axios.get('/api/loc/' + this.latlon).then(res => {
+      axios.get('/api/loc/39.7392,-104.9903').then(res => {
+        console.log(res)
         this.curTemp = res.data.currently.temperature
         this.curFeelsLike = res.data.currently.apparentTemperature
         this.curIcon = res.data.currently.icon
@@ -356,17 +356,20 @@ export default {
   font-weight:300;
 }
 .forecastRow{
-  margin-right: -14.75rem !important;
+  margin-right: -14.75em !important;
 }
 .forecastFont{
-  font-size: 1.2rem
+  font-size: 1.2em
 }
 .high{
   color: red;
-  margin-right: .5rem
+  margin-right: .5em
 }
 .low{
   color: blue;
-
+}
+.currentTemp{
+  font-size: 3em;
+  color:#1a263d;
 }
 </style>
