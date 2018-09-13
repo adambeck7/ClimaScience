@@ -22,7 +22,7 @@
         <p v-else><i class="fas fa-exclamation-triangle"></i> This value was recorded during the night, and is more likely to be below the monthly averages.</p>
       </div>
       <div v-if='label=="dewPoint"'>
-        <p>Dew Point!</p>
+        <p>Dew Point Data!</p>
       </div>
       <div v-if='label=="cloudCover"'>
         <p>Cloud Cover!</p>
