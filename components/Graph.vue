@@ -1,47 +1,52 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <h2 class='center header text_h2'>The next 48 hours of weather data, visualized.</h2>
-        <div class="input-field col s12 l6 offset-l3">
-          <a class="waves-effect waves-light btn" id="getloc" @click="getLocation"> Use my Location</a>
+  <div>
+    <div class="icon-bar" id="savelink" v-if="ran">
+      <a href='/mysaves'><i class=" fa fa-flask"></i></a> 
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h2 class='center header text_h2'>The next 48 hours of weather data, visualized.</h2>
+          <div class="input-field col s12 l6 offset-l3">
+            <a class="waves-effect waves-light btn" id="getloc" @click="getLocation"> Use my Location</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s6">
-        <input class="validate" type="text" v-model='lat' id="lat"/>
-        <label for="lat" class="label active">Latitude</label>
+      <div class="row">
+        <div class="input-field col s6">
+          <input class="validate" type="text" v-model='lat' id="lat"/>
+          <label for="lat" class="label active">Latitude</label>
+        </div>
+        <div class="input-field col s6">
+          <input class="validate" type="text" id="lng" v-model="lng"/>
+          <label for="lng" class="label active">Longitude</label>
+        </div>
       </div>
-      <div class="input-field col s6">
-        <input class="validate" type="text" id="lng" v-model="lng"/>
-        <label for="lng" class="label active">Longitude</label>
+      <div class="row">
+        <div v-for="option in options" v-bind:key="option" class="input-field col m4 s6 l3">
+          <input type="checkbox" :value="option" :id="option" v-model="selected" @click='go'/>
+          <label :for="option">{{ option }}</label>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div v-for="option in options" v-bind:key="option" class="input-field col m4 s6 l3">
-        <input type="checkbox" :value="option" :id="option" v-model="selected" @click='go'/>
-        <label :for="option">{{ option }}</label>
+      <div class="row">
+        <temp v-if="ran" :data='weatherData' :time='time'/>
       </div>
-    </div>
-    <div class="row">
-      <temp v-if="ran" :data='weatherData' :time='time'/>
-    </div>
-    <div class="row">
-      <table class="striped">
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th v-for="select in selected" v-bind:key="select">{{ select }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="ind in indeces"  v-bind:key="ind">
-            <td>{{ time[ind] }}</td>
-            <td v-for="item in weatherData" v-bind:key="item" :data='item.data[ind]' :label='item.label' :index='ind' @click='getDatum'><p>{{ item.data[ind] }}</p></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="row">
+        <table class="striped">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th v-for="select in selected" v-bind:key="select">{{ select }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="ind in indeces"  v-bind:key="ind">
+              <td>{{ time[ind] }}</td>
+              <td v-for="item in weatherData" v-bind:key="item" :data='item.data[ind]' :label='item.label' :index='ind' @click='getDatum'><p>{{ item.data[ind] }}</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -133,6 +138,11 @@ export default {
         .catch(error => {
           console.log(error)
         })
+      let icon = document.getElementById('savelink')
+      icon.classList.add('pop')
+      icon.addEventListener('webkitAnimationEnd', () => {
+        icon.classList.remove('pop')
+      })
     }
   }
 }
@@ -150,10 +160,36 @@ td p:hover {
   background-color: darkkhaki
 }
 
-@keyframes blink {
-  from {background-color: white}
-  to {background-color: darkkhaki}
-  to {background-color: white}
+@keyframes extend {
+  0% {width: 50.578px; background-color: #d4483e}
+  50% {width: 65px; background-color: maroon}
+  100% {width: 50.578px; background-color: #d4483e}
+}
+
+.icon-bar {
+  position: fixed;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  background-color: #d4483e;
+  z-index: 10;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.icon-bar a {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  transition: all .03 ease;
+  color: white;
+  font-size: 20px;
+}
+
+.pop {
+  animation-duration: 1s;
+  animation-name: extend;
 }
 
 </style>

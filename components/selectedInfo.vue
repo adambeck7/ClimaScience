@@ -31,11 +31,11 @@
       <div v-if='label=="ozone"'>
         <div v-if='data < 200'>
           <div class="row">
-            <div class="col s4">
-              <h3><i class="fas fa-exclamation-circle red-text"></i></h3>
+            <div class="col s4 center-align">
+              <h1><i class="fas fa-exclamation-circle red-text"></i></h1>
             </div>
             <div class="col s8">
-              <p>
+              <p class="flow-text">
                 The Ozone Layer is normally between 200 and 400 Dobson Units thick. Your recorded value of {{data}} DU falls below that range.
               </p>
             </div>
@@ -43,11 +43,11 @@
         </div>
         <div v-if='data > 200 && data < 400'>
           <div class="row">
-            <div class="col s4">
-              <h3><i class="fas fa-check-circle green-text"></i></h3>
+            <div class="col s4 center-align">
+              <h1><i class="fas fa-check-circle green-text"></i></h1>
             </div>
             <div class="col s8">
-              <p>The Ozone Layer is normally between 200 and 400 Dobson Units thick. Your recorded value of {{data}} DU falls into this range.</p>
+              <p class="flow-text">The Ozone Layer is normally between 200 and 400 Dobson Units thick. Your recorded value of {{data}} DU falls into this range.</p>
             </div>
           </div>
         </div>
@@ -140,6 +140,3 @@ module.exports = {
   }
 }
 </script>
-
-<style>
-</style>
