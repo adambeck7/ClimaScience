@@ -27,12 +27,35 @@
       <div v-if='label=="cloudCover"'>
         <p>Cloud Cover!</p>
       </div>
+      <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
       <div v-if='label=="ozone"'>
-        <p>OZone!</p>
+        <div v-if='data < 200'>
+          <div class="row">
+            <div class="col s4">
+              <h3><i class="fas fa-exclamation-circle red-text"></i></h3>
+            </div>
+            <div class="col s8">
+              <p>
+                The Ozone Layer is normally between 200 and 400 Dobson Units thick. Your recorded value of {{data}} DU falls below that range.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div v-if='data > 200 && data < 400'>
+          <div class="row">
+            <div class="col s4">
+              <h3><i class="fas fa-check-circle green-text"></i></h3>
+            </div>
+            <div class="col s8">
+              <p>The Ozone Layer is normally between 200 and 400 Dobson Units thick. Your recorded value of {{data}} DU falls into this range.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div v-if='label=="precipProbability"'>
-        <p>precipProbability!</p>
-      </div>
+    </div>
+      <!--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-->
+    <div v-if='label=="precipProbability"'>
+      <p>precipProbability!</p>
     </div>
   </div>
 </template>

@@ -10,7 +10,7 @@
                 <tr>
                   <th>Type</th>
                   <th>Value</th>
-                  <th>Created At</th>
+                  <th>Time</th>
                 </tr>
               </thead>
               <tbody>
@@ -19,7 +19,7 @@
                   <td>{{ datum.data }}</td>
                   <td>{{ datum.time }}:00</td>
                   <td>
-                    <button class="btn-floating waves-effect waves-light brain" :label='datum.label' :data='datum.data' :date='datum.time' :stamp='datum.createdAt' @click='selectData($event)'><i class="fas fa-brain"></i></button>
+                    <button class="btn-floating waves-effect waves-light brain" :label='datum.label' :data='datum.data' :date='datum.time' :stamp='datum.createdAt' @click='selectData($event)'><i class="far fa-lightbulb"></i></button>
                   </td>
                 </tr>
               </tbody>
