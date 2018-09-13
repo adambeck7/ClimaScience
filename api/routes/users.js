@@ -51,7 +51,8 @@ router.post('/data', (req, res) => {
   db.save
     .create({
       data: req.body.data,
-      label: req.body.label
+      label: req.body.label,
+      time: req.body.time
     })
     .then(dbPost => {
       res.json(dbPost)

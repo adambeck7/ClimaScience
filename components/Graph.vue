@@ -38,7 +38,7 @@
         <tbody>
           <tr v-for="ind in indeces"  v-bind:key="ind">
             <td>{{ time[ind] }}</td>
-            <td v-for="item in weatherData" v-bind:key="item" :data='item.data[ind]' :label='item.label' @click='getDatum'><p>{{ item.data[ind] }}</p></td>
+            <td v-for="item in weatherData" v-bind:key="item" :data='item.data[ind]' :label='item.label' :index='ind' @click='getDatum'><p>{{ item.data[ind] }}</p></td>
           </tr>
         </tbody>
       </table>
@@ -120,9 +120,12 @@ export default {
       let element = event.currentTarget
       let data = element.getAttribute('data')
       let label = element.getAttribute('label')
+      let time = parseInt(element.getAttribute('index'))
+      console.log(time)
       axios.post('/api/data', {
         data: data,
-        label: label
+        label: label,
+        time: time
       })
         .then(res => {
           console.log(res)
@@ -145,6 +148,12 @@ td p:hover {
   width: 100%;
   color: #1c263b;
   background-color: darkkhaki
+}
+
+@keyframes blink {
+  from {background-color: white}
+  to {background-color: darkkhaki}
+  to {background-color: white}
 }
 
 </style>

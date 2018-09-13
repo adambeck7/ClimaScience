@@ -5,6 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     label: {
       type: DataTypes.STRING
+    },
+    time: {
+      type: DataTypes.INTEGER
     }
   })
   return Save
