@@ -1,6 +1,13 @@
 <template>
   <div class="container">
     <div class="row">
+      <div class="input-field col s6">
+        <input class="validate" type="text" v-model='user' id="user"/>
+        <label for="user" class="label">User</label>
+      </div>
+      <a class="btn" @click="get()">Go</a>
+    </div>
+    <div class="row">
       <div class="col s12 m12">
         <div class="card white darken-1">
           <div class="card-content black-text">
@@ -41,7 +48,8 @@ export default {
     return {
       title: 'Your Data Saves',
       link: [
-        {rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.3.1/css/all.css'}
+        {rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.3.1/css/all.css'},
+        {rel: 'stylesheet', href: 'https://www.w3schools.com/w3css/4/w3.css'}
       ]
     }
   },
@@ -54,12 +62,13 @@ export default {
       selectedData: '',
       selectedLabel: '',
       selectedTime: '',
-      selectedStamp: ''
+      selectedStamp: '',
+      user: ''
     }
   },
   methods: {
     get () {
-      axios.get('/api/data')
+      axios.get(('/api/data/' + this.user))
         .then(res => {
           this.allData = res.data
           this.timestamp()
@@ -93,9 +102,6 @@ export default {
       this.selectedTime = date
       this.selectedStamp = stamp
     }
-  },
-  mounted () {
-    this.get()
   }
 }
 </script>

@@ -40,19 +40,26 @@ router.get('/two/', function(req, res, next) {
 const db = require('../models')
 
 // get route for data saves.
-router.get('/data', (req, res) => {
-  db.save.findAll().then(allData => {
+router.get('/data/:user', (req, res) => {
+  let user = req.params.user
+  db.save.findAll({
+    where: {
+      user: user
+    }
+  }).then(allData => {
     res.json(allData)
   })
 })
 
 // post route for data saves.
-router.post('/data', (req, res) => {
+router.post('/data/:user/', (req, res) => {
+  let user = req.params.user
   db.save
     .create({
       data: req.body.data,
       label: req.body.label,
-      time: req.body.time
+      time: req.body.time,
+      user: req.body.user
     })
     .then(dbPost => {
       res.json(dbPost)

@@ -13,13 +13,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s4">
           <input class="validate" type="text" v-model='lat' id="lat"/>
           <label for="lat" class="label active">Latitude</label>
         </div>
-        <div class="input-field col s6">
+        <div class="input-field col s4">
           <input class="validate" type="text" id="lng" v-model="lng"/>
           <label for="lng" class="label active">Longitude</label>
+        </div>
+        <div class="input-field col s4">
+          <input class="validate" type="text" v-model="user" id="user"/>
+          <label for="user" class="label">Username</label>
         </div>
       </div>
       <div class="row">
@@ -67,7 +71,8 @@ export default {
       ran: false,
       options: ['apparentTemperature', 'cloudCover', 'dewPoint', 'humidity', 'ozone', 'precipIntensity', 'precipProbability', 'pressure', 'temperature', 'uvIndex', 'visibility', 'windGust', 'windSpeed'],
       colors: ['#800000', '#FF0000', '#FFA500', '#FFFF00', '#008000', '#800080', '#008080', '#0000FF', '#000080', '#808000', '#FF00FF', '#00FFFF', '#00FF00'],
-      selected: []
+      selected: [],
+      user: ''
     }
   },
   methods: {
@@ -127,10 +132,11 @@ export default {
       let label = element.getAttribute('label')
       let time = parseInt(element.getAttribute('index'))
       console.log(time)
-      axios.post('/api/data', {
+      axios.post(('/api/data/' + this.user), {
         data: data,
         label: label,
-        time: time
+        time: time,
+        user: this.user
       })
         .then(res => {
           console.log(res)

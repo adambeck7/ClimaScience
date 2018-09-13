@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     time: {
       type: DataTypes.INTEGER
+    },
+    user: {
+      type: DataTypes.STRING
     }
   })
   return Save
