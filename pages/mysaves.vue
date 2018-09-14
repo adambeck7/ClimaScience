@@ -1,14 +1,14 @@
 <template>
-  <div class="container">
+  <div class="container" id="main">
     <div class="row">
       <div class="input-field col s6">
         <input class="validate" type="text" v-model='user' id="user"/>
-        <label for="user" class="label">User</label>
+        <label for="user">User</label>
       </div>
-      <a class="btn" @click="get()">Go</a>
+      <a class="btn waves-effect waves-light red darken-1" @click="get()">Go</a>
     </div>
     <div class="row">
-      <div class="col s12 m12">
+      <div class="col s12 l6">
         <div class="card white darken-1">
           <div class="card-content black-text">
             <span class="card-title black-text">Your Saves</span>
@@ -23,10 +23,13 @@
               <tbody>
                 <tr v-for='datum in allData' v-bind:key='datum.id'>
                   <td>{{ datum.label }}</td>
-                  <td>{{ datum.data }}</td>
+                  <td>
+                    <p v-if="datum.data.split('-').length > 1">Data Array</p>
+                    <p v-else>{{ datum.data }}</p>
+                  </td>
                   <td>{{ datum.time }}:00</td>
                   <td>
-                    <button class="btn-floating waves-effect waves-light brain" :label='datum.label' :data='datum.data' :date='datum.time' :stamp='datum.createdAt' @click='selectData($event)'><i class="far fa-lightbulb"></i></button>
+                    <a class="btn-floating waves-effect waves-light red darken-1" :label='datum.label' :data='datum.data' :date='datum.time' :stamp='datum.createdAt' @click='selectData($event)'><i class="far fa-lightbulb"></i></a>
                   </td>
                 </tr>
               </tbody>
@@ -34,8 +37,10 @@
           </div>
         </div>
       </div>
+      <div class="col s12 l6">
+        <selected-info :data='selectedData' :label='selectedLabel' :date='selectedTime' :stamp='selectedStamp'></selected-info>
+      </div>
     </div>
-    <selected-info :data='selectedData' :label='selectedLabel' :date='selectedTime' :stamp='selectedStamp'></selected-info>
   </div>
 </template>
 
@@ -106,12 +111,16 @@ export default {
 }
 </script>
 
-<style scoped>
-.container {
-  margin-top: 50px;
+<style>
+body, html {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+#main {
+  margin-top: 30px;
 }
 
 .brain {
-  background-color: darkkhaki;
+  background-color: darkkhaki !important;
 }
 </style>

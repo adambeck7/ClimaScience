@@ -98,12 +98,12 @@ export default {
 
 .nav-active {
   animation-name: sidenavin;
-  animation-duration: 2s;
+  animation-duration: 1s;
 }
 
 .nav-inactive {
   animation-name: sidenavout;
-  animation-duration: 2s;
+  animation-duration: 1s;
 }
 
 .nav-out {

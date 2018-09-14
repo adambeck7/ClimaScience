@@ -13,17 +13,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s4">
+        <div class="input-field col s6 m4 l4">
           <input class="validate" type="text" v-model='lat' id="lat"/>
-          <label for="lat" class="label active">Latitude</label>
+          <label for="lat" class="active">Latitude</label>
         </div>
-        <div class="input-field col s4">
+        <div class="input-field col s6 m4 l4">
           <input class="validate" type="text" id="lng" v-model="lng"/>
-          <label for="lng" class="label active">Longitude</label>
+          <label for="lng" class="active">Longitude</label>
         </div>
-        <div class="input-field col s4">
+        <div class="input-field col s12 m4 l4">
           <input class="validate" type="text" v-model="user" id="user"/>
-          <label for="user" class="label">Username</label>
+          <label for="user">Username</label>
         </div>
       </div>
       <div class="row">
@@ -40,7 +40,7 @@
           <thead>
             <tr>
               <th>Time</th>
-              <th v-for="select in selected" v-bind:key="select">{{ select }}</th>
+              <th v-for="select in selected" v-bind:key="select" @click='getColumn'>{{ select }}</th>
             </tr>
           </thead>
           <tbody>
@@ -149,12 +149,32 @@ export default {
       icon.addEventListener('webkitAnimationEnd', () => {
         icon.classList.remove('pop')
       })
+    },
+    getColumn (event) {
+      let element = event.currentTarget
+      let label = element.innerHTML
+      console.log(label)
+      let data = this.weatherData.filter(item =>
+        item.label === label
+      )[0].data.join('-')
+      axios.post(('/api/data/' + this.user), {
+        data: data,
+        label: label,
+        user: this.user
+      })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }
 </script>
 
 <style>
+
 td p:hover {
   text-decoration: underline;
   cursor: pointer;
@@ -163,13 +183,19 @@ td p:hover {
 #getloc {
   width: 100%;
   color: #1c263b;
-  background-color: darkkhaki
+  background-color: darkkhaki;
 }
 
 @keyframes extend {
   0% {width: 50.578px; background-color: #d4483e}
   50% {width: 65px; background-color: maroon}
   100% {width: 50.578px; background-color: #d4483e}
+}
+
+@keyframes animation-lower {
+  0% {background-color: #d4483e}
+  50% {background-color: maroon}
+  100% {background-color: #d4483e}
 }
 
 .icon-bar {
@@ -196,6 +222,18 @@ td p:hover {
 .pop {
   animation-duration: 1s;
   animation-name: extend;
+}
+
+@media screen and (max-width: 640px){
+  .icon-bar {
+    top: 97%;
+    width: 100%;
+    border-radius: 0;
+  }
+  .pop {
+    animation-duration: 1s;
+    animation-name: animation-lower;
+  }
 }
 
 </style>
