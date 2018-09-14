@@ -21,8 +21,8 @@
               <label for="icon_prefix">City, Zip, Address or Lat/Lng</label>
           </div>
           <div>
-            <button class="btn waves-effect waves-light red darken-1" @click='geoCoder'>GO</button> 
-            <button class="btn waves-effect waves-light red darken-1" @click='getPosts(); buildMap()'>Get Forecast</button> 
+            <button class="btn waves-effect waves-light red darken-1" @click='geoCoder'>Get Forecast</button> 
+           <!-- <button class="btn waves-effect waves-light red darken-1" @click='getPosts(); buildMap()'>Get Forecast</button> -->
           </div>  
 
       
@@ -37,17 +37,17 @@
             <p class="currentTemp redBorder">{{ Math.round(curTemp) }}<span class="farenheitBig">&#8457</span></p>
           </div>
           <div class="card horizontal">
-          <div class="col s2 m2">
+          <div class="col s2 m3 borderRight">
             <p>Feels Like: {{ Math.round(curFeelsLike) }}<span class="farenheitSmall">&#8457</span></p>
             <p>Humidity: {{ Math.round(curHumid) }}%</p>
             <p>Precip: {{ Math.round(curPrecipProb) }}%</p>
           </div>
-          <div class="col s2 m2">
+          <div class="col s2 m3 borderRight">
             <p>Wind: {{ Math.round(curWindSpeed) }}mph</p>
             <p>Gusting to: {{ Math.round(curWindGust) }}mph</p>
             <p>Direction: {{ curWindBearing | formatWind }}</p>
           </div>
-          <div class="col s2 m2">
+          <div class="col s2 m4 borderRight">
             <p>Visibility: {{ Math.round(curVis) }} miles</p>
             <p>The nearest storm is {{ nearestStormDistance }} miles to the {{ nearestStormBearing | formatWind}}.</p>
           </div>
@@ -272,7 +272,7 @@ export default {
     }
   },
   mounted: function () {
-    this.geoCoder()
+    // this.geoCoder()
     this.buildMap()
   },
   //   head () {
@@ -289,73 +289,134 @@ export default {
         this.lat = res.data.results[0].geometry.location.lat
         this.lon = res.data.results[0].geometry.location.lng
         this.latlon = this.lat + ',' + this.lon
-      })
-    },
-    getPosts () {
-      axios.get('/api/loc/' + this.latlon).then(res => {
-      // axios.get('/api/loc/39.7392,-104.9903').then(res => {
-        console.log(res)
-        this.curTemp = res.data.currently.temperature
-        this.curFeelsLike = res.data.currently.apparentTemperature
-        this.curIcon = res.data.currently.icon.icon
-        this.curHumid = res.data.currently.humidity
-        this.curOzone = res.data.currently.ozone
-        this.curWindBearing = res.data.currently.windBearing
-        this.curWindGust = res.data.currently.windGust
-        this.curWindSpeed = res.data.currently.windSpeed
-        this.curVis = res.data.currently.visibility
-        this.curSummary = res.data.currently.summary
-        this.curPrecipIntensity = res.data.currently.precipIntensity
-        this.curPrecipProb = res.data.currently.precipProbability
-        this.curUV = res.data.currently.uvIndex
-        this.nearestStormBearing = res.data.currently.nearestStormBearing
-        this.nearestStormDistance = res.data.currently.nearestStormDistance
-        this.high = res.data.daily.data[1].apparentTemperatureHigh
-        this.low = res.data.daily.data[1].apparentTemperatureLow
-        this.precipChance = res.data.daily.data[1].precipProbability * 100
-        this.summary = res.data.daily.data[1].summary
-        this.icon = res.data.daily.data[1].icon
-        this.date = new Date(res.data.daily.data[1].time * 1000)
-        this.high2 = res.data.daily.data[2].apparentTemperatureHigh
-        this.low2 = res.data.daily.data[2].apparentTemperatureLow
-        this.precipChance2 =
+      }).then(res => {
+        axios.get('/api/loc/' + this.latlon).then(res => {
+          // axios.get('/api/loc/39.7392,-104.9903').then(res => {
+          console.log(res)
+          this.curTemp = res.data.currently.temperature
+          this.curFeelsLike = res.data.currently.apparentTemperature
+          this.curIcon = res.data.currently.icon.icon
+          this.curHumid = res.data.currently.humidity
+          this.curOzone = res.data.currently.ozone
+          this.curWindBearing = res.data.currently.windBearing
+          this.curWindGust = res.data.currently.windGust
+          this.curWindSpeed = res.data.currently.windSpeed
+          this.curVis = res.data.currently.visibility
+          this.curSummary = res.data.currently.summary
+          this.curPrecipIntensity = res.data.currently.precipIntensity
+          this.curPrecipProb = res.data.currently.precipProbability
+          this.curUV = res.data.currently.uvIndex
+          this.nearestStormBearing = res.data.currently.nearestStormBearing
+          this.nearestStormDistance = res.data.currently.nearestStormDistance
+          this.high = res.data.daily.data[1].apparentTemperatureHigh
+          this.low = res.data.daily.data[1].apparentTemperatureLow
+          this.precipChance = res.data.daily.data[1].precipProbability * 100
+          this.summary = res.data.daily.data[1].summary
+          this.icon = res.data.daily.data[1].icon
+          this.date = new Date(res.data.daily.data[1].time * 1000)
+          this.high2 = res.data.daily.data[2].apparentTemperatureHigh
+          this.low2 = res.data.daily.data[2].apparentTemperatureLow
+          this.precipChance2 =
             res.data.daily.data[2].precipProbability * 100
-        this.icon2 = res.data.daily.data[2].icon
-        this.summary2 = res.data.daily.data[2].summary
-        this.date2 = new Date(res.data.daily.data[2].time * 1000)
-        this.high3 = res.data.daily.data[3].apparentTemperatureHigh
-        this.low3 = res.data.daily.data[3].apparentTemperatureLow
-        this.precipChance3 =
+          this.icon2 = res.data.daily.data[2].icon
+          this.summary2 = res.data.daily.data[2].summary
+          this.date2 = new Date(res.data.daily.data[2].time * 1000)
+          this.high3 = res.data.daily.data[3].apparentTemperatureHigh
+          this.low3 = res.data.daily.data[3].apparentTemperatureLow
+          this.precipChance3 =
             res.data.daily.data[3].precipProbability * 100
-        this.icon3 = res.data.daily.data[3].icon
-        this.summary3 = res.data.daily.data[3].summary
-        this.date3 = new Date(res.data.daily.data[3].time * 1000)
-        this.high4 = res.data.daily.data[4].apparentTemperatureHigh
-        this.low4 = res.data.daily.data[4].apparentTemperatureLow
-        this.precipChance4 =
+          this.icon3 = res.data.daily.data[3].icon
+          this.summary3 = res.data.daily.data[3].summary
+          this.date3 = new Date(res.data.daily.data[3].time * 1000)
+          this.high4 = res.data.daily.data[4].apparentTemperatureHigh
+          this.low4 = res.data.daily.data[4].apparentTemperatureLow
+          this.precipChance4 =
             res.data.daily.data[4].precipProbability * 100
-        this.icon4 = res.data.daily.data[4].icon
-        this.summary4 = res.data.daily.data[4].summary
-        this.date4 = new Date(res.data.daily.data[4].time * 1000)
-        this.high5 = res.data.daily.data[5].apparentTemperatureHigh
-        this.low5 = res.data.daily.data[5].apparentTemperatureLow
-        this.precipChance5 =
+          this.icon4 = res.data.daily.data[4].icon
+          this.summary4 = res.data.daily.data[4].summary
+          this.date4 = new Date(res.data.daily.data[4].time * 1000)
+          this.high5 = res.data.daily.data[5].apparentTemperatureHigh
+          this.low5 = res.data.daily.data[5].apparentTemperatureLow
+          this.precipChance5 =
             res.data.daily.data[5].precipProbability * 100
-        this.icon5 = res.data.daily.data[5].icon
-        this.summary5 = res.data.daily.data[5].summary
-        this.date5 = new Date(res.data.daily.data[5].time * 1000)
-        this.high6 = res.data.daily.data[6].apparentTemperatureHigh
-        this.low6 = res.data.daily.data[6].apparentTemperatureLow
-        this.precipChance6 =
+          this.icon5 = res.data.daily.data[5].icon
+          this.summary5 = res.data.daily.data[5].summary
+          this.date5 = new Date(res.data.daily.data[5].time * 1000)
+          this.high6 = res.data.daily.data[6].apparentTemperatureHigh
+          this.low6 = res.data.daily.data[6].apparentTemperatureLow
+          this.precipChance6 =
             res.data.daily.data[6].precipProbability * 100
-        this.icon6 = res.data.daily.data[6].icon
-        this.summary6 = res.data.daily.data[6].summary
-        this.date6 = new Date(res.data.daily.data[6].time * 1000)
-      })
-        .catch(error => {
-          console.log(error)
+          this.icon6 = res.data.daily.data[6].icon
+          this.summary6 = res.data.daily.data[6].summary
+          this.date6 = new Date(res.data.daily.data[6].time * 1000)
         })
+      })
     },
+    // getPosts () {
+    //   axios.get('/api/loc/' + this.latlon).then(res => {
+    //   // axios.get('/api/loc/39.7392,-104.9903').then(res => {
+    //     console.log(res)
+    //     this.curTemp = res.data.currently.temperature
+    //     this.curFeelsLike = res.data.currently.apparentTemperature
+    //     this.curIcon = res.data.currently.icon.icon
+    //     this.curHumid = res.data.currently.humidity
+    //     this.curOzone = res.data.currently.ozone
+    //     this.curWindBearing = res.data.currently.windBearing
+    //     this.curWindGust = res.data.currently.windGust
+    //     this.curWindSpeed = res.data.currently.windSpeed
+    //     this.curVis = res.data.currently.visibility
+    //     this.curSummary = res.data.currently.summary
+    //     this.curPrecipIntensity = res.data.currently.precipIntensity
+    //     this.curPrecipProb = res.data.currently.precipProbability
+    //     this.curUV = res.data.currently.uvIndex
+    //     this.nearestStormBearing = res.data.currently.nearestStormBearing
+    //     this.nearestStormDistance = res.data.currently.nearestStormDistance
+    //     this.high = res.data.daily.data[1].apparentTemperatureHigh
+    //     this.low = res.data.daily.data[1].apparentTemperatureLow
+    //     this.precipChance = res.data.daily.data[1].precipProbability * 100
+    //     this.summary = res.data.daily.data[1].summary
+    //     this.icon = res.data.daily.data[1].icon
+    //     this.date = new Date(res.data.daily.data[1].time * 1000)
+    //     this.high2 = res.data.daily.data[2].apparentTemperatureHigh
+    //     this.low2 = res.data.daily.data[2].apparentTemperatureLow
+    //     this.precipChance2 =
+    //         res.data.daily.data[2].precipProbability * 100
+    //     this.icon2 = res.data.daily.data[2].icon
+    //     this.summary2 = res.data.daily.data[2].summary
+    //     this.date2 = new Date(res.data.daily.data[2].time * 1000)
+    //     this.high3 = res.data.daily.data[3].apparentTemperatureHigh
+    //     this.low3 = res.data.daily.data[3].apparentTemperatureLow
+    //     this.precipChance3 =
+    //         res.data.daily.data[3].precipProbability * 100
+    //     this.icon3 = res.data.daily.data[3].icon
+    //     this.summary3 = res.data.daily.data[3].summary
+    //     this.date3 = new Date(res.data.daily.data[3].time * 1000)
+    //     this.high4 = res.data.daily.data[4].apparentTemperatureHigh
+    //     this.low4 = res.data.daily.data[4].apparentTemperatureLow
+    //     this.precipChance4 =
+    //         res.data.daily.data[4].precipProbability * 100
+    //     this.icon4 = res.data.daily.data[4].icon
+    //     this.summary4 = res.data.daily.data[4].summary
+    //     this.date4 = new Date(res.data.daily.data[4].time * 1000)
+    //     this.high5 = res.data.daily.data[5].apparentTemperatureHigh
+    //     this.low5 = res.data.daily.data[5].apparentTemperatureLow
+    //     this.precipChance5 =
+    //         res.data.daily.data[5].precipProbability * 100
+    //     this.icon5 = res.data.daily.data[5].icon
+    //     this.summary5 = res.data.daily.data[5].summary
+    //     this.date5 = new Date(res.data.daily.data[5].time * 1000)
+    //     this.high6 = res.data.daily.data[6].apparentTemperatureHigh
+    //     this.low6 = res.data.daily.data[6].apparentTemperatureLow
+    //     this.precipChance6 =
+    //         res.data.daily.data[6].precipProbability * 100
+    //     this.icon6 = res.data.daily.data[6].icon
+    //     this.summary6 = res.data.daily.data[6].summary
+    //     this.date6 = new Date(res.data.daily.data[6].time * 1000)
+    //   })
+    //     .catch(error => {
+    //       console.log(error)
+    //     })
+    // },
     buildMap () {
       var map
       function initialize () {
@@ -508,6 +569,7 @@ export default {
   -webkit-border-radius: 50%;
   margin-right: .2em;
 }
+
 .farenheitBig{
   font-size: .3em;
   position: absolute;
