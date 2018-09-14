@@ -13,15 +13,14 @@
     <div class="container">
       
        <div class="center">
-        
-                   
           <div class="input-field col s6 m3 center">
               <i class="mdi-action-account-circle prefix white-text"></i>
               <input v-model='geo' id="icon_prefix" type="text" class="active">
               <label for="icon_prefix">City, Zip, Address or Lat/Lng</label>
           </div>
           <div>
-            <button class="btn waves-effect waves-light red darken-1" @click='geoCoder'>Get Forecast</button> 
+            <button class="btn waves-effect waves-light red darken-1 forecastButton" @click='geoCoder'>Get Forecast</button>
+            <a class="waves-effect waves-light btn" id="getloc" @click="getLocation"> Use my Location</a>
            <!-- <button class="btn waves-effect waves-light red darken-1" @click='getPosts(); buildMap()'>Get Forecast</button> -->
           </div>  
 
@@ -450,18 +449,79 @@ export default {
         map.overlayMapTypes.setAt('1', tileNEX)
       }
       google.maps.event.addDomListener(window, 'load', initialize)
+    },
+    getLocation () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition)
+      } else {
+        console.warn('Geolocation not supported.')
+      }
+    },
+    showPosition (position) {
+      this.lat = position.coords.latitude
+      this.lng = position.coords.longitude
+      this.latlon = this.lat + ',' + this.lng
+      axios.get('/api/loc/' + this.latlon).then(res => {
+        // axios.get('/api/loc/39.7392,-104.9903').then(res => {
+        console.log(res)
+        this.curTemp = res.data.currently.temperature
+        this.curFeelsLike = res.data.currently.apparentTemperature
+        this.curIcon = res.data.currently.icon.icon
+        this.curHumid = res.data.currently.humidity
+        this.curOzone = res.data.currently.ozone
+        this.curWindBearing = res.data.currently.windBearing
+        this.curWindGust = res.data.currently.windGust
+        this.curWindSpeed = res.data.currently.windSpeed
+        this.curVis = res.data.currently.visibility
+        this.curSummary = res.data.currently.summary
+        this.curPrecipIntensity = res.data.currently.precipIntensity
+        this.curPrecipProb = res.data.currently.precipProbability
+        this.curUV = res.data.currently.uvIndex
+        this.nearestStormBearing = res.data.currently.nearestStormBearing
+        this.nearestStormDistance = res.data.currently.nearestStormDistance
+        this.high = res.data.daily.data[1].apparentTemperatureHigh
+        this.low = res.data.daily.data[1].apparentTemperatureLow
+        this.precipChance = res.data.daily.data[1].precipProbability * 100
+        this.summary = res.data.daily.data[1].summary
+        this.icon = res.data.daily.data[1].icon
+        this.date = new Date(res.data.daily.data[1].time * 1000)
+        this.high2 = res.data.daily.data[2].apparentTemperatureHigh
+        this.low2 = res.data.daily.data[2].apparentTemperatureLow
+        this.precipChance2 =
+            res.data.daily.data[2].precipProbability * 100
+        this.icon2 = res.data.daily.data[2].icon
+        this.summary2 = res.data.daily.data[2].summary
+        this.date2 = new Date(res.data.daily.data[2].time * 1000)
+        this.high3 = res.data.daily.data[3].apparentTemperatureHigh
+        this.low3 = res.data.daily.data[3].apparentTemperatureLow
+        this.precipChance3 =
+            res.data.daily.data[3].precipProbability * 100
+        this.icon3 = res.data.daily.data[3].icon
+        this.summary3 = res.data.daily.data[3].summary
+        this.date3 = new Date(res.data.daily.data[3].time * 1000)
+        this.high4 = res.data.daily.data[4].apparentTemperatureHigh
+        this.low4 = res.data.daily.data[4].apparentTemperatureLow
+        this.precipChance4 =
+            res.data.daily.data[4].precipProbability * 100
+        this.icon4 = res.data.daily.data[4].icon
+        this.summary4 = res.data.daily.data[4].summary
+        this.date4 = new Date(res.data.daily.data[4].time * 1000)
+        this.high5 = res.data.daily.data[5].apparentTemperatureHigh
+        this.low5 = res.data.daily.data[5].apparentTemperatureLow
+        this.precipChance5 =
+            res.data.daily.data[5].precipProbability * 100
+        this.icon5 = res.data.daily.data[5].icon
+        this.summary5 = res.data.daily.data[5].summary
+        this.date5 = new Date(res.data.daily.data[5].time * 1000)
+        this.high6 = res.data.daily.data[6].apparentTemperatureHigh
+        this.low6 = res.data.daily.data[6].apparentTemperatureLow
+        this.precipChance6 =
+            res.data.daily.data[6].precipProbability * 100
+        this.icon6 = res.data.daily.data[6].icon
+        this.summary6 = res.data.daily.data[6].summary
+        this.date6 = new Date(res.data.daily.data[6].time * 1000)
+      })
     }
-    // getLocation () {
-    //   if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition(showPosition)
-    //   } else {
-    //     console.warn('Geolocation not supported.')
-    //   }
-    // }
-    // showPosition (position) {
-    //   let lat = position.coords.latitude
-    //   let lng = position.coords.longitude
-    // }
   },
   filters: {
     formatDate: function (val) {
@@ -536,8 +596,8 @@ export default {
   color:#1a263d;
   font-weight:300;
 }
-.forecastRow{
-  
+.forecastButton{
+  margin-right: 2em;
 }
 .forecastFont{
   font-size: 1.2em
