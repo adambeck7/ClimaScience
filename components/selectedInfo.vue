@@ -133,7 +133,7 @@
                   <p class="center flow-text">
                     <span v-if="cumulativeRainfall < 4.8">This is considered a low amount of rainfall.</span>
                     <span v-if="cumulativeRainfall > 4.8 && cumulativeRainfall <= 14.4">This is considered a medium amount of rainfall.</span>
-                    <span v-else>This is considered a large amount of rainfall.</span>
+                    <span v-if="cumulativeRainfall > 14.4">This is considered a large amount of rainfall.</span>
                   </p>
                 </div>
               </div>
@@ -231,7 +231,11 @@ module.exports = {
         wind: 'mph',
         temp: 'deg',
         rain: '"',
-        ozone: 'DU'
+        ozone: 'DU',
+        percent: '%',
+        none: '',
+        pressure: 'mb',
+        distance: 'miles'
       }
     }
   },
@@ -276,6 +280,11 @@ module.exports = {
       if (arr.length <= 1) {
         return arr.join('')
       } else {
+        if (this.label === 'humidity' || this.label === 'precipProbability' || this.label === 'cloudCover') {
+          for (let i = 0; i < arr.length; i++) {
+            (arr[i] *= 100).toFixed(2)
+          }
+        }
         return arr
       }
     },
@@ -320,14 +329,22 @@ module.exports = {
       for (let i = 0; i < this.dataArray.length; i++) {
         sum += parseFloat(this.dataArray[i])
       }
-      return {
-        max: Math.max.apply(null, this.dataArray).toFixed(2),
-        min: Math.min.apply(null, this.dataArray).toFixed(2),
-        average: (sum / this.dataArray.length).toFixed(2)
+      if (this.label === 'uvIndex') {
+        return {
+          max: Math.max.apply(null, this.dataArray),
+          min: Math.min.apply(null, this.dataArray),
+          average: Math.floor(sum / this.dataArray.length)
+        }
+      } else {
+        return {
+          max: Math.max.apply(null, this.dataArray).toFixed(2),
+          min: Math.min.apply(null, this.dataArray).toFixed(2),
+          average: (sum / this.dataArray.length).toFixed(2)
+        }
       }
     },
     selectOperand () {
-      if (this.label === 'apparentTemp' || this.label === 'temperature') {
+      if (this.label === 'apparentTemp' || this.label === 'temperature' || this.label === 'dewPoint') {
         return this.operands.temp
       } else if (this.label === 'windSpeed' || this.label === 'windGust') {
         return this.operands.wind
@@ -335,6 +352,14 @@ module.exports = {
         return this.operands.ozone
       } else if (this.label === 'precipIntensity') {
         return this.operands.rain
+      } else if (this.label === 'humidity' || this.label === 'precipProbability' || this.label === 'cloudCover') {
+        return this.operands.percent
+      } else if (this.label === 'uvIndex') {
+        return this.operands.none
+      } else if (this.label === 'pressure') {
+        return this.operands.pressure
+      } else if (this.label === 'visibility') {
+        return this.operands.distance
       }
     }
   },

@@ -86,7 +86,7 @@
                 <div class="col s12 m3">
                     <div class="card card-avatar">
                         <div class="waves-effect waves-block waves-light">
-                            <img class="activator" src="">
+                            <img class="activator" src="~/assets/img/jpic.png">
                         </div>
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4">
