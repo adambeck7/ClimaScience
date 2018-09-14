@@ -145,7 +145,7 @@
                     <div class="card-content black-text">
                       <span class="card-title center green-text"><h3><i class="fas fa-caret-up"></i></h3></span>
                       <h5 class="center">Highest:</h5>
-                      <span class="flow-text center span">{{columnAnalysis.min}}</span>
+                      <span class="flow-text center span">{{columnAnalysis.max}}</span>
                       <span class="display:inline;">
                         <span class="flow-text" v-if='selectOperand=="deg"'>&deg; F</span>
                         <span v-else> {{selectOperand}}</span>
@@ -171,7 +171,7 @@
                     <div class="card-content black-text">
                       <span class="card-title center blue-text"><h3><i class="fas fa-bullseye"></i></h3></span>
                       <h5 class="center">Average:</h5>
-                      <span class="flow-text center">{{columnAnalysis.min}}</span>
+                      <span class="flow-text center">{{columnAnalysis.average}}</span>
                       <span class="display:inline;">
                         <span class="flow-text" v-if='selectOperand=="deg"'>&deg; F</span>
                         <span v-else> {{selectOperand}}</span>
