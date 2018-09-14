@@ -121,15 +121,16 @@
             <hr>
             <div v-if='displayLabel === "PrecipIntensity"'>
               <div class="row">
-                <div class="col s3">
+                <div class="col s4">
+                  <p class="center flow-text">In the next 48 hours, {{ cumulativeRainfall }}" of rain are expected to fall in the area of this recording.</p>
+                </div>
+                <div class="col s4">
                   <div :style='this.rainfallBarCSS.css' class="w3-round-large">
                     <div class="w3-grey" :style='rainfallBarCSS.percent'></div>
                   </div>
                 </div>
-                <div class="col s9">
-                  <p class="flow-text">In the next 48 hours, {{ cumulativeRainfall }}" of rain are expected to fall in the area of this recording.</p>
-                  <br>
-                  <p class="flow-text">
+                <div class="col s4">
+                  <p class="center flow-text">
                     <span v-if="cumulativeRainfall < 4.8">This is considered a low amount of rainfall.</span>
                     <span v-if="cumulativeRainfall > 4.8 && cumulativeRainfall <= 14.4">This is considered a medium amount of rainfall.</span>
                     <span v-else>This is considered a large amount of rainfall.</span>
@@ -137,6 +138,48 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+                <h4 class="center">Hour by hour:</h4>
+                <div class="col s12 m4 l4">
+                  <div class="card white analytic">
+                    <div class="card-content black-text">
+                      <span class="card-title center green-text"><h3><i class="fas fa-caret-up"></i></h3></span>
+                      <h5 class="center">Highest:</h5>
+                      <span class="flow-text center span">{{columnAnalysis.min}}</span>
+                      <span class="display:inline;">
+                        <span class="flow-text" v-if='selectOperand=="deg"'>&deg; F</span>
+                        <span v-else> {{selectOperand}}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m4 l4">
+                  <div class="card white analytic">
+                    <div class="card-content black-text">
+                      <span class="card-title center red-text"><h3><i class="fas fa-caret-down"></i></h3></span>
+                      <h5 class="center">Lowest:</h5>
+                      <span class="flow-text center">{{columnAnalysis.min}}</span>
+                      <span class="display:inline;">
+                        <span class="flow-text" v-if='selectOperand=="deg"'>&deg; F</span>
+                        <span v-else> {{selectOperand}}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m4 l4">
+                  <div class="card white analytic">
+                    <div class="card-content black-text">
+                      <span class="card-title center blue-text"><h3><i class="fas fa-bullseye"></i></h3></span>
+                      <h5 class="center">Average:</h5>
+                      <span class="flow-text center">{{columnAnalysis.min}}</span>
+                      <span class="display:inline;">
+                        <span class="flow-text" v-if='selectOperand=="deg"'>&deg; F</span>
+                        <span v-else> {{selectOperand}}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
         </div>
       </div>
@@ -183,7 +226,13 @@ module.exports = {
         54,
         48
       ],
-      user: ''
+      user: '',
+      operands: {
+        wind: 'mph',
+        temp: 'deg',
+        rain: '"',
+        ozone: 'DU'
+      }
     }
   },
   computed: {
@@ -251,19 +300,41 @@ module.exports = {
       let percent = 100 - parseInt(this.cumulativeRainfall / 25 * 100)
       if (this.cumulativeRainfall <= 4.8) {
         return {
-          css: 'height:200px;width:24px;margin-left:25%;background:linear-gradient(#4286f4, #373B44)',
+          css: 'height:200px;width:24px;margin-left:40%;background:linear-gradient(#4286f4, #373B44)',
           percent: 'width:24px;height:' + percent + '%'
         }
       } else if (this.cumulativeRainfall <= 14.4) {
         return {
-          css: 'height:200px;width:24px;margin-left:25%;background:linear-gradient(#4286f4, #373B44)',
+          css: 'height:200px;width:24px;margin-left:40%;background:linear-gradient(#4286f4, #373B44)',
           percent: 'width:24px;height:' + percent + '%'
         }
       } else {
         return {
-          css: 'height:200px;width:24px;margin-left:25%;background:linear-gradient(#4286f4, #373B44)',
+          css: 'height:200px;width:24px;margin-left:36%;background:linear-gradient(#4286f4, #373B44)',
           percent: 'width:24px;height:' + percent + '%'
         }
+      }
+    },
+    columnAnalysis () {
+      let sum = 0
+      for (let i = 0; i < this.dataArray.length; i++) {
+        sum += parseFloat(this.dataArray[i])
+      }
+      return {
+        max: Math.max.apply(null, this.dataArray).toFixed(2),
+        min: Math.min.apply(null, this.dataArray).toFixed(2),
+        average: (sum / this.dataArray.length).toFixed(2)
+      }
+    },
+    selectOperand () {
+      if (this.label === 'apparentTemp' || this.label === 'temperature') {
+        return this.operands.temp
+      } else if (this.label === 'windSpeed' || this.label === 'windGust') {
+        return this.operands.wind
+      } else if (this.label === 'ozone') {
+        return this.operands.ozone
+      } else if (this.label === 'precipIntensity') {
+        return this.operands.rain
       }
     }
   },
@@ -279,10 +350,7 @@ module.exports = {
 </script>
 
 <style>
-  .myColor {
-    background-color: red;
-  }
-  .myOtherColor {
-    background-color: blue;
+  .analytic {
+    text-align: center;
   }
 </style>

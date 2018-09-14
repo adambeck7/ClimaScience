@@ -40,7 +40,7 @@
           <thead>
             <tr>
               <th>Time</th>
-              <th v-for="select in selected" v-bind:key="select" @click='getColumn'>{{ select }}</th>
+              <th class="time" v-for="select in selected" v-bind:key="select" @click='getColumn'>{{ select }}</th>
             </tr>
           </thead>
           <tbody>
@@ -168,6 +168,11 @@ export default {
         .catch(error => {
           console.log(error)
         })
+      let icon = document.getElementById('savelink')
+      icon.classList.add('pop')
+      icon.addEventListener('webkitAnimationEnd', () => {
+        icon.classList.remove('pop')
+      })
     }
   }
 }
@@ -222,6 +227,11 @@ td p:hover {
 .pop {
   animation-duration: 1s;
   animation-name: extend;
+}
+
+.time:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 640px){
