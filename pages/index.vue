@@ -1,8 +1,4 @@
 <template>
-
-
-
-
 <div>
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
@@ -17,17 +13,30 @@
     <div class="container">
       
        <div class="center">
+        
+                   
+          <div class="input-field col s6 m3 center">
+              <i class="mdi-action-account-circle prefix white-text"></i>
+              <input v-model='geo' id="icon_prefix" type="text" class="active">
+              <label for="icon_prefix">City, Zip, Address or Lat/Lng</label>
+          </div>
+          <div>
+            <button class="btn waves-effect waves-light red darken-1" @click='geoCoder'>GO</button> 
+            <button class="btn waves-effect waves-light red darken-1" @click='getPosts(); buildMap()'>Get Forecast</button> 
+          </div>  
+
       
-        <input v-model='geo'/>
+       <!-- <input v-model='geo'/>
         <button @click='geoCoder'>GO</button> 
         <button @click='getPosts(); buildMap()'>Get Forecast</button> 
-          <!--<p>{{ geo }}</p>-->
+          <p>{{ geo }}</p>-->
       </div>
-      <div class='row'>
+      <div class='row rowTopper'>
         <div class="section">
-          <div class="col s4 m2">
-            <p class="currentTemp">{{ Math.round(curTemp) }}<span class="farenheitBig">&#8457</span></p>
+          <div class="col s6 m3 center">
+            <p class="currentTemp redBorder">{{ Math.round(curTemp) }}<span class="farenheitBig">&#8457</span></p>
           </div>
+          <div class="card horizontal">
           <div class="col s2 m2">
             <p>Feels Like: {{ Math.round(curFeelsLike) }}<span class="farenheitSmall">&#8457</span></p>
             <p>Humidity: {{ Math.round(curHumid) }}%</p>
@@ -41,7 +50,7 @@
           <div class="col s2 m2">
             <p>Visibility: {{ Math.round(curVis) }} miles</p>
             <p>The nearest storm is {{ nearestStormDistance }} miles to the {{ nearestStormBearing | formatWind}}.</p>
-          
+          </div>
           </div>
         </div>
       </div>
@@ -60,7 +69,7 @@
                   <p>&#8593<span class="high">{{Math.round(high)}}&#8457    </span> &#8595<span class="low">{{Math.round(low)}}</span>&#8457</p>
                   <p>Precip: {{Math.round(precipChance)}}%</p>
 
-                  <i class="wi wi-night-sleet"></i>
+                  <i :class=" icon | iconChooser "></i>
                 </div>
                 <div class="card-action">
                   <p> {{summary}}</p>
@@ -79,7 +88,7 @@
                   <p>&#8593<span class="high">{{Math.round(high2)}}&#8457    </span> &#8595<span class="low">{{Math.round(low2)}}</span>&#8457</p>
                   <p>Precip: {{Math.round(precipChance2)}}%</p>
 
-                  <i class="wi wi-night-sleet"></i>
+                  <i :class=" icon2 | iconChooser "></i>
                 </div>
                 <div class="card-action">
                   <p> {{summary2}}</p>
@@ -98,7 +107,7 @@
                   <p>&#8593<span class="high">{{Math.round(high3)}}&#8457    </span> &#8595<span class="low">{{Math.round(low3)}}</span>&#8457</p>
                   <p>Precip: {{Math.round(precipChance3)}}%</p>
 
-                  <i class="wi wi-night-sleet"></i>
+                  <i :class=" icon3 | iconChooser "></i>
                 </div>
                 <div class="card-action">
                   <p> {{summary3}}</p>
@@ -117,7 +126,7 @@
                   <p>&#8593<span class="high">{{Math.round(high4)}}&#8457    </span> &#8595<span class="low">{{Math.round(low4)}}</span>&#8457</p>
                   <p>Precip: {{Math.round(precipChance4)}}%</p>
 
-                  <i class="wi wi-night-sleet"></i>
+                  <i :class=" icon4 | iconChooser "></i>
                 </div>
                 <div class="card-action">
                   <p> {{summary4}}</p>
@@ -136,10 +145,30 @@
                   <p>&#8593<span class="high">{{Math.round(high5)}}&#8457    </span> &#8595<span class="low">{{Math.round(low5)}}</span>&#8457</p>
                   <p>Precip: {{Math.round(precipChance5)}}%</p>
 
-                  <i class="wi wi-night-sleet"></i>
+                 <i :class=" icon5 | iconChooser "></i>
                 </div>
                 <div class="card-action">
                   <p> {{summary5}}</p>
+                </div>
+                
+              </div>
+        
+            </div>
+            <div class="col s2 m2">
+              <h5 class="header center forecastHeaders">{{ date6 | formatDate }}</h5>
+              <div class="card horizontal">
+                <div class="card-image">
+
+                </div>
+                <div class="card-stacked center">
+
+                  <p>&#8593<span class="high">{{Math.round(high6)}}&#8457    </span> &#8595<span class="low">{{Math.round(low6)}}</span>&#8457</p>
+                  <p>Precip: {{Math.round(precipChance6)}}%</p>
+
+                  <i :class=" icon6 | iconChooser "></i>
+                </div>
+                <div class="card-action">
+                  <p> {{summary6}}</p>
                 </div>
                 
               </div>
@@ -224,11 +253,22 @@ export default {
       precipChance5: null,
       summary5: null,
       date5: null,
+      high6: null,
+      low6: null,
+      precipChance6: null,
+      summary6: null,
+      date6: null,
       lat: '',
       lon: '',
       geo: '',
       latlon: '',
-      mapLoaded: false
+      mapLoaded: false,
+      icon: null,
+      icon2: null,
+      icon3: null,
+      icon4: null,
+      icon5: null,
+      icon6: null
     }
   },
   mounted: function () {
@@ -270,35 +310,47 @@ export default {
         this.curUV = res.data.currently.uvIndex
         this.nearestStormBearing = res.data.currently.nearestStormBearing
         this.nearestStormDistance = res.data.currently.nearestStormDistance
-        this.high = res.data.daily.data[0].apparentTemperatureHigh
-        this.low = res.data.daily.data[0].apparentTemperatureLow
-        this.precipChance = res.data.daily.data[0].precipProbability * 100
-        this.summary = res.data.daily.data[0].summary
-        this.date = new Date(res.data.daily.data[0].time * 1000)
-        this.high2 = res.data.daily.data[1].apparentTemperatureHigh
-        this.low2 = res.data.daily.data[1].apparentTemperatureLow
+        this.high = res.data.daily.data[1].apparentTemperatureHigh
+        this.low = res.data.daily.data[1].apparentTemperatureLow
+        this.precipChance = res.data.daily.data[1].precipProbability * 100
+        this.summary = res.data.daily.data[1].summary
+        this.icon = res.data.daily.data[1].icon
+        this.date = new Date(res.data.daily.data[1].time * 1000)
+        this.high2 = res.data.daily.data[2].apparentTemperatureHigh
+        this.low2 = res.data.daily.data[2].apparentTemperatureLow
         this.precipChance2 =
-            res.data.daily.data[1].precipProbability * 100
-        this.summary2 = res.data.daily.data[1].summary
-        this.date2 = new Date(res.data.daily.data[1].time * 1000)
-        this.high3 = res.data.daily.data[2].apparentTemperatureHigh
-        this.low3 = res.data.daily.data[2].apparentTemperatureLow
-        this.precipChance3 =
             res.data.daily.data[2].precipProbability * 100
-        this.summary3 = res.data.daily.data[2].summary
-        this.date3 = new Date(res.data.daily.data[2].time * 1000)
-        this.high4 = res.data.daily.data[3].apparentTemperatureHigh
-        this.low4 = res.data.daily.data[3].apparentTemperatureLow
-        this.precipChance4 =
+        this.icon2 = res.data.daily.data[2].icon
+        this.summary2 = res.data.daily.data[2].summary
+        this.date2 = new Date(res.data.daily.data[2].time * 1000)
+        this.high3 = res.data.daily.data[3].apparentTemperatureHigh
+        this.low3 = res.data.daily.data[3].apparentTemperatureLow
+        this.precipChance3 =
             res.data.daily.data[3].precipProbability * 100
-        this.summary4 = res.data.daily.data[3].summary
-        this.date4 = new Date(res.data.daily.data[3].time * 1000)
-        this.high5 = res.data.daily.data[4].apparentTemperatureHigh
-        this.low5 = res.data.daily.data[4].apparentTemperatureLow
-        this.precipChance5 =
+        this.icon3 = res.data.daily.data[3].icon
+        this.summary3 = res.data.daily.data[3].summary
+        this.date3 = new Date(res.data.daily.data[3].time * 1000)
+        this.high4 = res.data.daily.data[4].apparentTemperatureHigh
+        this.low4 = res.data.daily.data[4].apparentTemperatureLow
+        this.precipChance4 =
             res.data.daily.data[4].precipProbability * 100
-        this.summary5 = res.data.daily.data[4].summary
-        this.date5 = new Date(res.data.daily.data[4].time * 1000)
+        this.icon4 = res.data.daily.data[4].icon
+        this.summary4 = res.data.daily.data[4].summary
+        this.date4 = new Date(res.data.daily.data[4].time * 1000)
+        this.high5 = res.data.daily.data[5].apparentTemperatureHigh
+        this.low5 = res.data.daily.data[5].apparentTemperatureLow
+        this.precipChance5 =
+            res.data.daily.data[5].precipProbability * 100
+        this.icon5 = res.data.daily.data[5].icon
+        this.summary5 = res.data.daily.data[5].summary
+        this.date5 = new Date(res.data.daily.data[5].time * 1000)
+        this.high6 = res.data.daily.data[6].apparentTemperatureHigh
+        this.low6 = res.data.daily.data[6].apparentTemperatureLow
+        this.precipChance6 =
+            res.data.daily.data[6].precipProbability * 100
+        this.icon6 = res.data.daily.data[6].icon
+        this.summary6 = res.data.daily.data[6].summary
+        this.date6 = new Date(res.data.daily.data[6].time * 1000)
       })
         .catch(error => {
           console.log(error)
@@ -390,6 +442,23 @@ export default {
       } else if (wind >= 326.26 && wind <= 348.75) {
         return 'NNW'
       }
+    },
+    iconChooser: function (icon) {
+      if (icon === 'clear-day') {
+        return 'wi wi-day-sunny'
+      } else if (icon === 'rain') {
+        return 'wi wi-rain'
+      } else if (icon === 'snow') {
+        return 'wi wi-snow'
+      } else if (icon === 'wind') {
+        return 'wi wi-day-windy'
+      } else if (icon === 'cloudy') {
+        return 'wi wi-cloudy'
+      } else if (icon === 'partly-cloudy-day') {
+        return 'wi wi-day-cloudy'
+      } else if (icon === 'partly-cloudy-night') {
+        return 'wi wi-day-cloudy'
+      }
     }
   }
 }
@@ -407,7 +476,7 @@ export default {
   font-weight:300;
 }
 .forecastRow{
-  margin-right: -14.75em !important;
+  
 }
 .forecastFont{
   font-size: 1.2em
@@ -422,19 +491,35 @@ export default {
 .currentTemp{
   font-size: 5em;
   color:#1a263d;
-  margin-top: .1em;
+  margin-top: .2em;
   margin-bottom: 0em;
+  margin-right: .2em;
+  padding-right: .3em;
+  font-weight: 300
+}
+.redBorder{
+   width: 2em;
+  height: 2em;
+  line-height: 2em;
+  border: 2px solid red;
+  border-radius: 50%;
+  align-content: center;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  margin-right: .2em;
 }
 .farenheitBig{
   font-size: .3em;
   position: absolute;
-  margin-top: 1em;
+  margin-top: -.7em;
 
 }
 .farenheitSmall{
   font-size: .6em;
   position: absolute;
   margin-top: .2em;
-
+}
+.rowTopper{
+  margin-top: 1em
 }
 </style>
