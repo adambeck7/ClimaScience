@@ -1,0 +1,57 @@
+{
+  "name": "nuxt-testinga",
+  "version": "1.0.0",
+  "description": "Nuxt.js project",
+  "author": "Jack Ryan <jack.dixon.ryan@gmail.com>",
+  "private": true,
+  "engines": {
+    "node": "10.8.0",
+    "npm": "6.4.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "precommit": "npm run lint",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "heroku-postbuild": "npm run build",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
+    "chart.js": "^2.7.2",
+    "cors": "^2.8.4",
+    "cross-env": "^5.0.1",
+    "express": "^4.15.3",
+    "hammerjs": "^2.0.8",
+    "jquery": "^3.3.1",
+    "mocha": "^5.2.0",
+    "moment": "^2.22.2",
+    "mysql2": "^1.6.1",
+    "nuxt": "^1.4.2",
+    "request": "^2.88.0",
+    "sequelize": "^4.38.0",
+    "sequelize-cli": "^4.1.1",
+    "source-map-support": "^0.4.15",
+    "vue-chartjs": "^3.4.0",
+    "vue-moment": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.3.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^4.0.5",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  }
+}
