@@ -13,17 +13,13 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s6 m4 l4">
+        <div class="input-field col s6">
           <input class="validate" type="text" v-model='lat' id="lat"/>
           <label for="lat" class="active">Latitude</label>
         </div>
-        <div class="input-field col s6 m4 l4">
+        <div class="input-field col s6">
           <input class="validate" type="text" id="lng" v-model="lng"/>
           <label for="lng" class="active">Longitude</label>
-        </div>
-        <div class="input-field col s12 m4 l4">
-          <input class="validate" type="text" v-model="user" id="user"/>
-          <label for="user">Username</label>
         </div>
       </div>
       <div class="row">
@@ -72,7 +68,7 @@ export default {
       options: ['apparentTemperature', 'cloudCover', 'dewPoint', 'humidity', 'ozone', 'precipIntensity', 'precipProbability', 'pressure', 'temperature', 'uvIndex', 'visibility', 'windGust', 'windSpeed'],
       colors: ['#800000', '#FF0000', '#FFA500', '#FFFF00', '#008000', '#800080', '#008080', '#0000FF', '#000080', '#808000', '#FF00FF', '#00FFFF', '#00FF00'],
       selected: [],
-      user: ''
+      user: 'none'
     }
   },
   methods: {
@@ -173,6 +169,13 @@ export default {
       icon.addEventListener('webkitAnimationEnd', () => {
         icon.classList.remove('pop')
       })
+    }
+  },
+  mounted () {
+    let user = window.localStorage.getItem('user')
+    if (user !== null) {
+      let nickname = JSON.parse(user).nickname
+      this.user = nickname
     }
   }
 }

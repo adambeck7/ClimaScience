@@ -3,13 +3,16 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _f3f41d56 = () => import('../pages/two.vue' /* webpackChunkName: "pages/two" */).then(m => m.default || m)
-const _03215bf3 = () => import('../pages/mysaves.vue' /* webpackChunkName: "pages/mysaves" */).then(m => m.default || m)
-const _7d68111b = () => import('../pages/historicalData.vue' /* webpackChunkName: "pages/historicalData" */).then(m => m.default || m)
-const _0eadf1d6 = () => import('../pages/about.vue' /* webpackChunkName: "pages/about" */).then(m => m.default || m)
-const _798a9eca = () => import('../pages/graphing.vue' /* webpackChunkName: "pages/graphing" */).then(m => m.default || m)
-const _6d9e406f = () => import('../pages/one.vue' /* webpackChunkName: "pages/one" */).then(m => m.default || m)
-const _2e65cc9b = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
+const _11419e59 = () => import('../pages/two.vue' /* webpackChunkName: "pages/two" */).then(m => m.default || m)
+const _02123212 = () => import('../pages/mysaves.vue' /* webpackChunkName: "pages/mysaves" */).then(m => m.default || m)
+const _5ad4d997 = () => import('../pages/historicalData.vue' /* webpackChunkName: "pages/historicalData" */).then(m => m.default || m)
+const _8c9b244c = () => import('../pages/about.vue' /* webpackChunkName: "pages/about" */).then(m => m.default || m)
+const _42168617 = () => import('../pages/graphing.vue' /* webpackChunkName: "pages/graphing" */).then(m => m.default || m)
+const _0e4c251a = () => import('../pages/one.vue' /* webpackChunkName: "pages/one" */).then(m => m.default || m)
+const _842ceb5c = () => import('../pages/auth/signed-in.vue' /* webpackChunkName: "pages/auth/signed-in" */).then(m => m.default || m)
+const _4043d4de = () => import('../pages/auth/sign-in.vue' /* webpackChunkName: "pages/auth/sign-in" */).then(m => m.default || m)
+const _4e97aab3 = () => import('../pages/auth/sign-off.vue' /* webpackChunkName: "pages/auth/sign-off" */).then(m => m.default || m)
+const _4d2b6ec2 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
 
@@ -71,37 +74,52 @@ export function createRouter () {
     routes: [
 		{
 			path: "/two",
-			component: _f3f41d56,
+			component: _11419e59,
 			name: "two"
 		},
 		{
 			path: "/mysaves",
-			component: _03215bf3,
+			component: _02123212,
 			name: "mysaves"
 		},
 		{
 			path: "/historicalData",
-			component: _7d68111b,
+			component: _5ad4d997,
 			name: "historicalData"
 		},
 		{
 			path: "/about",
-			component: _0eadf1d6,
+			component: _8c9b244c,
 			name: "about"
 		},
 		{
 			path: "/graphing",
-			component: _798a9eca,
+			component: _42168617,
 			name: "graphing"
 		},
 		{
 			path: "/one",
-			component: _6d9e406f,
+			component: _0e4c251a,
 			name: "one"
 		},
 		{
+			path: "/auth/signed-in",
+			component: _842ceb5c,
+			name: "auth-signed-in"
+		},
+		{
+			path: "/auth/sign-in",
+			component: _4043d4de,
+			name: "auth-sign-in"
+		},
+		{
+			path: "/auth/sign-off",
+			component: _4e97aab3,
+			name: "auth-sign-off"
+		},
+		{
 			path: "/",
-			component: _2e65cc9b,
+			component: _4d2b6ec2,
 			name: "index"
 		}
     ],

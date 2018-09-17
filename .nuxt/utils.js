@@ -116,11 +116,11 @@ export async function setContext(app, context) {
       isDev: true,
       isHMR: false,
       app,
-      
+      store: app.store,
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {"GEOCODE_API_KEY":"AIzaSyBgPq_-8pPHqIlL9YaQCl8qLHcCr9jE-A8","MAPS_API_KEY":"AIzaSyDnDVcOKz9T8y1QE9V11gUu0G2EWwGBDQo"}
+      env: {"GEOCODE_API_KEY":"AIzaSyBgPq_-8pPHqIlL9YaQCl8qLHcCr9jE-A8","MAPS_API_KEY":"AIzaSyDnDVcOKz9T8y1QE9V11gUu0G2EWwGBDQo","AUTH0_CLIENT_ID":"","AUTH0_CLIENT_DOMAIN":""}
     }
     // Only set once
     if (context.req) app.context.req = context.req

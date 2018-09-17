@@ -1,44 +1,48 @@
 <template>
-  <div class="container" id="main">
-    <div class="row">
-      <div class="input-field col s6">
-        <input class="validate" type="text" v-model='user' id="user"/>
-        <label for="user">User</label>
-      </div>
-      <a class="btn waves-effect waves-light red darken-1" @click="get()">Go</a>
-    </div>
-    <div class="row">
-      <div class="col s12 l6">
-        <div class="card white darken-1">
-          <div class="card-content black-text">
-            <span class="card-title black-text">Your Saves</span>
-            <table>
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th>Value</th>
-                  <th>Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for='datum in allData' v-bind:key='datum.id'>
-                  <td>{{ datum.label }}</td>
-                  <td>
-                    <p v-if="datum.data.split('-').length > 1">Data Array</p>
-                    <p v-else>{{ datum.data }}</p>
-                  </td>
-                  <td>{{ datum.time }}:00</td>
-                  <td>
-                    <a class="btn-floating waves-effect waves-light red darken-1" :label='datum.label' :data='datum.data' :date='datum.time' :stamp='datum.createdAt' @click='selectData($event)'><i class="far fa-lightbulb"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+  <div>
+    <div class="container" id="not-logged" v-if='user === null'>
+      <div class="row">
+        <div class="container s12 center">
+          <h3><i class="fas fa-wrench"></i> We're sorry!</h3>
+          <p>You must be signed in to view saved data.</p>
+          <a class="btn waves-effect waves-light" href="/auth/sign-in">Sign in or create an account here</a>
         </div>
       </div>
-      <div class="col s12 l6">
-        <selected-info :data='selectedData' :label='selectedLabel' :date='selectedTime' :stamp='selectedStamp'></selected-info>
+    </div>
+    <div class="container" id="main" v-else>
+      <div class="row">
+        <div class="col s12 l6">
+          <div class="card white darken-1">
+            <div class="card-content black-text">
+              <span class="card-title black-text">Your Saves</span>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Value</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for='datum in allData' v-bind:key='datum.id'>
+                    <td>{{ datum.label }}</td>
+                    <td>
+                      <p v-if="datum.data.split('-').length > 1">Data Array</p>
+                      <p v-else>{{ datum.data }}</p>
+                    </td>
+                    <td>{{ datum.time }}:00</td>
+                    <td>
+                      <a class="btn-floating waves-effect waves-light red darken-1" :label='datum.label' :data='datum.data' :date='datum.time' :stamp='datum.createdAt' @click='selectData($event)'><i class="far fa-lightbulb"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 l6">
+          <selected-info :data='selectedData' :label='selectedLabel' :date='selectedTime' :stamp='selectedStamp'></selected-info>
+        </div>
       </div>
     </div>
   </div>
@@ -68,7 +72,7 @@ export default {
       selectedLabel: '',
       selectedTime: '',
       selectedStamp: '',
-      user: ''
+      user: null
     }
   },
   methods: {
@@ -106,6 +110,14 @@ export default {
       this.selectedLabel = label
       this.selectedTime = date
       this.selectedStamp = stamp
+    }
+  },
+  mounted () {
+    let user = window.localStorage.getItem('user')
+    if (user !== null) {
+      let nickname = JSON.parse(user).nickname
+      this.user = nickname
+      this.get()
     }
   }
 }

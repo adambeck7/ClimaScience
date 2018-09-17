@@ -1,9 +1,12 @@
 module.exports = {
-  /*
-  ** Headers of the page
-  */ env: {
+  router: {
+    middleware: 'check-auth'
+  },
+  env: {
     GEOCODE_API_KEY: 'AIzaSyBgPq_-8pPHqIlL9YaQCl8qLHcCr9jE-A8',
-    MAPS_API_KEY: 'AIzaSyDnDVcOKz9T8y1QE9V11gUu0G2EWwGBDQo'
+    MAPS_API_KEY: 'AIzaSyDnDVcOKz9T8y1QE9V11gUu0G2EWwGBDQo',
+    AUTH0_CLIENT_ID: '',
+    AUTH0_CLIENT_DOMAIN: ''
   },
   head: {
     title: 'ClimaScience',

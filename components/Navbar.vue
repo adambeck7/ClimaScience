@@ -11,6 +11,9 @@
           <li><a href="/graphing" class="navbar-link tab waves-effect waves-teal">Data</a></li>
           <li><a href="/mysaves" class="navbar-link tab waves-effect waves-teal">Climate Lab</a></li>
           <li><a href="/historicalData" class="navbar-link tab waves-effect waves-teal">Historical</a></li>
+          <li v-if="isAuthenticated"><a href="/secret" class="navbar-link tab waves-effect waves-teal">Secret</a></li>
+          <li v-if="!isAuthenticated"><a href="auth/sign-in" class="navbar-link tab waves-effect waves-teal">Sign in</a></li>
+          <li v-else><a href="/auth/sign-off" class="navbar-link tab waves-effect waves-teal">Sign off</a></li>
         </ul>
       </div>
       <div id="side-nav-footer">
@@ -27,6 +30,9 @@
               <li><a href="./graphing">Data</a></li>
               <li><a href="./about">Team</a></li>
               <li><a href="#contact">Contact</a></li>
+              <li v-if="isAuthenticated"><a href="/secret">Secret</a></li>
+              <li v-if="!isAuthenticated"><a href="auth/sign-in">Sign in</a></li>
+              <li v-else><a href="/auth/sign-off">Sign off</a></li>
             </ul>
             <a @click='burgerDeploy()' href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
           </div>
@@ -38,6 +44,7 @@
 
 <script>
 /* eslint-disable */
+import { mapGetters } from 'vuex'
 export default {
   methods: {
     burgerDeploy () {
@@ -71,7 +78,8 @@ export default {
         {rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.3.1/css/all.css'}
       ]
     }
-  }
+  },
+  computed: mapGetters(['isAuthenticated'])
 }
 </script>
 

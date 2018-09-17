@@ -1,6 +1,5 @@
 /* eslint-disable */
 const { Router } = require('express')
-
 const request = require('request')
 const bodyParser = require('body-parser')
 
@@ -17,6 +16,7 @@ router.get('/loc/:latlng', function(req, res, next) {
       latlng
   }).pipe(res)
 })
+
 router.get('/two/', function(req, res, next) {
   request({
     url: 'https://www.ncdc.noaa.gov/cdo-web/api/v2/datasets',
