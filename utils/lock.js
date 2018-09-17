@@ -23,6 +23,13 @@ const getOptions = container => {
         scope: 'openid profile email',
         state: secret
       }
+    },
+    theme: {
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Atom_symbol_as_used_in_the_logo_of_the_television_series_The_Big_Bang_Theory_%28black%29.svg/470px-Atom_symbol_as_used_in_the_logo_of_the_television_series_The_Big_Bang_Theory_%28black%29.svg.png',
+      primaryColor: 'darkkhaki'
+    },
+    languageDictionary: {
+      title: 'ClimaScience'
     }
   }
 }
