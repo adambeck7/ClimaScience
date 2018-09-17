@@ -5,12 +5,34 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#1a263d">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+    <!-- <script src='./js/time.js' type="module"></script> -->
+    <script src='../public/js/moment.js'></script>
 
     <title>Material UI One Page Theme</title>
 
     <!-- CSS  -->
     <link href="min/plugin-min.css" type="text/css" rel="stylesheet">
     <link href="min/custom-min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons-wind.css" />
+    <style>
+        /* html,
+    body, */
+    #map_canvas {
+        margin: 0;
+        padding: 0;
+        height: 80%;
+        width: 80%;
+        z-index: 99;
+
+    }
+        </style>
+
+
 </head>
 
 <body id="top" class="scrollspy">
@@ -31,18 +53,17 @@
                 <div class="nav-wrapper">
                     <a href="#" id="logo-container" class="brand-logo">ClimaScience</a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="#intro">Maps</a></li>
-                        <li><a href="#work">Historical Data</a></li>
-                        <li><a href="#team">Team</a></li>
+                        <li><a href="./map.html">Maps</a></li>
+                        <li><a href="./chart.html">Historical Data</a></li>
+                        <li><a href="./index.html">Team</a></li>
                         <li><a href="#contact">Contact</a></li>
 
                     </ul>
                     <ul id="nav-mobile" class="side-nav">
-                        <li><a href="#intro">Service</a></li>
-                        <li><a href="#work">Work</a></li>
-                        <li><a href="#team">Team</a></li>
+                        <li><a href="./map.html">Maps</a></li>
+                        <li><a href="./chart.html">Historical Data</a></li>
+                        <li><a href="./index.html">Team</a></li>
                         <li><a href="#contact">Contact</a></li>
-
                     </ul>
                     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
                 </div>
@@ -66,7 +87,7 @@
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <h1 class="center header cd-headline letters type">
-                <img src="public/img/climaScience-transparent.png" alt="ClimaScience logo">
+                <img src="img/climaScience-transparent.png" alt="ClimaScience logo">
             </h1>
         </div>
     </div>
@@ -77,14 +98,172 @@
             <div class="row">
                 <div class="col s12">
                     <form method="get">
-                        <input type="text">
-                        <button type="submit">Submit text</button>
+                        <label for="input">Latitude, Longitude</label>
+                        <input id="latlng" type="text">
+                        <button class="submit" type="submit">Submit text</button>
                     </form>
+                </div>
+                <div id="app">
+                    <div class="col s6 m2">
+                        <h4 class="header center">{{ date | formatDate('YY-MM-DD') }}</h4>
+                        <div class="card horizontal">
+                            <div class="card-image">
+
+                            </div>
+                            <div class="card-stacked center">
+
+                                <p>High: {{high}} </p>
+                                <p>Low: {{low}}</p>
+                                <p>Precip: {{precipChance}}%</p>
+
+                                <i class="wi wi-night-sleet"></i>
+                            </div>
+                            <div class="card-action">
+                                <p> {{summary}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col s6 m2">
+                        <h4 class="header center">{{ date2 | formatDate('YY-MM-DD') }}</h4>
+                        <div class="card horizontal">
+                            <div class="card-image">
+
+                            </div>
+                            <div class="card-stacked center">
+
+                                <p>High: {{high2}} </p>
+                                <p>Low: {{low2}}</p>
+                                <p>Precip: {{precipChance2}}%</p>
+
+                                <i class="wi wi-night-sleet"></i>
+                            </div>
+                            <div class="card-action">
+                                <p> {{summary2}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col s6 m2">
+                        <h4 class="header center">{{ date3 | formatDate('YY-MM-DD') }}</h4>
+                        <div class="card horizontal">
+                            <div class="card-image">
+
+                            </div>
+                            <div class="card-stacked center">
+
+                                <p>High: {{high3}} </p>
+                                <p>Low: {{low3}}</p>
+                                <p>Precip: {{precipChance3}}%</p>
+
+                                <i class="wi wi-night-sleet"></i>
+                            </div>
+                            <div class="card-action">
+                                <p> {{summary3}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col s6 m2">
+                        <h4 class="header center">{{ date4 | formatDate('YY-MM-DD') }}</h4>
+                        <div class="card horizontal">
+                            <div class="card-image">
+
+                            </div>
+                            <div class="card-stacked center">
+
+                                <p>High: {{high4}} </p>
+                                <p>Low: {{low4}}</p>
+                                <p>Precip: {{precipChance4}}%</p>
+
+                                <i class="wi wi-night-sleet"></i>
+                            </div>
+                            <div class="card-action">
+                                <p> {{summary4}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col s6 m2">
+                        <h4 class="header center">{{ date5 | formatDate('YY-MM-DD') }}</h4>
+                        <div class="card horizontal">
+                            <div class="card-image">
+
+                            </div>
+                            <div class="card-stacked center">
+
+                                <p>High: {{high5}} </p>
+                                <p>Low: {{low5}}</p>
+                                <p>Precip: {{precipChance5}}%</p>
+
+                                <i class="wi wi-night-sleet"></i>
+                            </div>
+                            <div class="card-action">
+                                <p> {{summary5}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+
+                        <!-- <iframe src="http://www.lightningmaps.org/?lang=en#m=oss;t=3;s=0;o=0;b=;ts=0;" frameborder="0"
+                        sandbox="allow-forms allow-scripts" height="1400" width="1300"></iframe> -->
+
+                    </div>
+
                 </div>
 
 
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnDVcOKz9T8y1QE9V11gUu0G2EWwGBDQo"></script>
+                <script>
+                    var map;
+                    function initialize() {
+                        var mapOptions = {
+                            zoom: 8,
+                            center: new google.maps.LatLng(39.7392, -104.9903),
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        map = new google.maps.Map(document.getElementById('map_canvas'),
+                            mapOptions);
+
+                        tileNEX = new google.maps.ImageMapType({
+                            getTileUrl: function (tile, zoom) {
+                                return "https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/" + zoom + "/" + tile.x + "/" + tile.y + ".png?" + (new Date()).getTime();
+                            },
+                            tileSize: new google.maps.Size(256, 256),
+                            opacity: 0.60,
+                            name: 'NEXRAD',
+                            isPng: true
+                        });
+
+
+                        goes = new google.maps.ImageMapType({
+                            getTileUrl: function (tile, zoom) {
+                                return "https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/goes-east-vis-1km-900913/" + zoom + "/" + tile.x + "/" + tile.y + ".png?" + (new Date()).getTime();
+                            },
+                            tileSize: new google.maps.Size(256, 256),
+                            opacity: 0.60,
+                            name: 'GOES East Vis',
+                            isPng: true
+                        });
+
+                        map.overlayMapTypes.push(null); // create empty overlay entry
+                        map.overlayMapTypes.setAt("0", goes);
+                        map.overlayMapTypes.push(null); // create empty overlay entry
+                        map.overlayMapTypes.setAt("1", tileNEX);
+
+
+                    }
+
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
+                <div>
+                    <div id="map_canvas"></div>
+                </div>
             </div>
+
         </div>
+    </div>
     </div>
 
 
@@ -159,6 +338,10 @@
     <!--  Scripts-->
     <script src="min/plugin-min.js"></script>
     <script src="min/custom-min.js"></script>
+    <script src="./js/FiveDayForecast.js"></script>
+
+    <!-- <script src='../public/js/moment.js'></script> -->
+
 
 </body>
 

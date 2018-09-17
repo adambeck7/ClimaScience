@@ -1,10 +1,11 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+var path = require("path");
 
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 8081;
 
 // Requiring our models for syncing
 var db = require("./models");
@@ -21,12 +22,12 @@ app.use(express.static("public"));
 
 // Routes
 // =============================================================
-require("./routes/html-routes.js")(app);
+//require("./routes/html-routes.js")(app);
 
 const DarkSky = require("dark-sky");
 const darksky = new DarkSky("99f31f87aad858fab80ba47a8b0aaacc");
 
-app.get("/", (req, res) => {
+app.get("/map", (req, res) => {
   darksky
     .options({
       latitude: 37.8267,
