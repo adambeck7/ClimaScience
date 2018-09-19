@@ -1,5 +1,5 @@
 # ClimaScience
-### Data-Driven Weather Data
+### The Data-Driven Weather App
 
 ClimaScience is a fast, reliable, easy-to-navigate weather app for users who are exhausted by noisy weather sites filled with 
 ads and clickbait, and so often void of good weather information. In addition to providing users with easily-accessed forecasts, ClimaScience offers interactive tools that allow users to not only view but also analyze weather trends recorded anywhere anywhere in the world. Simply punch in a latitude and longitude to view the 48-hour chart, and click any datum in the data chart to gain insights into that value. 
