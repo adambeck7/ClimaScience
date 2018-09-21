@@ -35,12 +35,14 @@
     </div>
     <div id="compared">
       <a class="btn-flat waves-effect expand" @click="expandSelection"><i class="fas fa-expand-arrows-alt"></i></a>
+      <dataset-comp v-if="secondDatumIndex !== null && firstDatumIndex !== null" :dataOne='firstDatum' :dataTwo='secondDatum'/>
     </div>
   </div>
 </template>
 
 <script>
 import axios from '~/plugins/axios'
+import datasetComp from '~/components/dataComp/datasetComp.vue'
 import uvIndex from '~/components/singleDataModules/uvIndex.vue'
 import columnStats from '~/components/dataColumn/columnStats.vue'
 
@@ -56,7 +58,8 @@ export default {
   },
   components: {
     uvIndex,
-    columnStats
+    columnStats,
+    datasetComp
   },
   data () {
     return {
@@ -95,8 +98,8 @@ export default {
         })
     },
     timestamp () {
-      for (let i = 0; i < this.allData.length; i++) {
-        let timeMod = this.allData[i].time
+      for (let i = 0; i < this.allData.data.length; i++) {
+        let timeMod = this.allData[i].data.time
         let currentHour = new Date()
         let hour = currentHour.getHours()
         let actualHour = hour + timeMod
@@ -204,13 +207,20 @@ export default {
   height: 650px;
 }
 
-#alldata, #selected, #compared {
+#selected, #compared {
+  flex: 2;
+  border: 1px lightgray solid;
+  overflow: scroll;
+}
+
+#alldata {
   flex: 1;
   border: 1px lightgray solid;
+  overflow: scroll;
 }
 
 .expanded {
-  flex: 2 !important;
+  flex: 3 !important;
 }
 
 .expand i {
@@ -250,5 +260,18 @@ p {
   border-bottom: 1px lightgray solid;
   border-top: 1px lightgray solid;
   padding: 10px;
+}
+
+@media screen and (max-width: 450px){
+  #container {
+    display: initial;
+  }
+
+  #selected, #compared, #alldata {
+    width: 90%;
+    display: block;
+    height: 300px;
+    overflow: scroll;
+  }
 }
 </style>

@@ -1,8 +1,21 @@
 <template>
   <div>
-    <h4>{{label}}</h4>
-    <div class="chart-container">
-      <bell-curve :xAxis="barsForHistogram.xAxis" :yAxis="barsForHistogram.yAxis"/>
+    <div class="row">
+      <div class="col s6" id="chart">
+        <h4>{{label}}</h4>
+        <bell-curve :xAxis="barsForHistogram.xAxis" :yAxis="barsForHistogram.yAxis" :standardDeviation='standardDeviation' :mean='mean'/>
+      </div>
+      <div class="col s6">
+        <div class="card white">
+          <div class="card-content black-text">
+            <span class="card-title black-text">Essentials</span>
+            <p>Mean: {{mean}}</p>
+            <p>Max: {{max}}</p>
+            <p>Min: {{min}}</p>
+            <p>Sigma: {{standardDeviation}}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -111,7 +124,7 @@
 </script>
 
 <style scoped>
-  .chart-container {
-    max-width: 200px;
+  #chart {
+    max-height: 241px;
   }
 </style>

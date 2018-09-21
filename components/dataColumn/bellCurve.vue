@@ -3,17 +3,20 @@ import { Bar } from 'vue-chartjs'
 
 export default {
   extends: Bar,
-  props: ['xAxis', 'yAxis'],
+  props: ['xAxis', 'yAxis', 'standardDeviation', 'mean'],
   data () {
     return {
       labels: this.xAxis
     }
   },
   computed: {
-    arr () {
-      for (let i = 0; i < this.standardDeviations.length; i++) {
-        this.standardDeviations[i] = parseFloat(this.standardDeviations[i])
+    values () {
+      let realXAxis = []
+      for (let i = 0; i < this.xAxis.length; i++) {
+        let val = (parseFloat(this.mean) + (this.xAxis[i] * parseFloat(this.standardDeviation))).toFixed(2)
+        realXAxis.push(val)
       }
+      return realXAxis
     }
   },
   mounted () {
@@ -22,7 +25,7 @@ export default {
   methods: {
     createChart () {
       this.renderChart({
-        labels: this.labels,
+        labels: this.values,
         datasets: [
           {
             label: 'Histogram',

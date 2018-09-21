@@ -51,6 +51,7 @@ router.get('/data/:user', (req, res) => {
   })
 })
 
+
 // post route for data saves.
 router.post('/data/:user/', (req, res) => {
   let user = req.params.user
@@ -60,6 +61,25 @@ router.post('/data/:user/', (req, res) => {
       label: req.body.label,
       time: req.body.time,
       user: req.body.user
+    })
+    .then(dbPost => {
+      res.json(dbPost)
+    })
+})
+
+router.get('/data/r-vals', (req, res) => {
+  db.rval.findAll({}).then(allData => {
+    res.json(allData)
+  })
+})
+
+router.post('/data/r-vals', (req, res) => {
+  db.rval
+    .create({
+      rVal: req.body.rVal,
+      dataOne: req.body.dataOne,
+      dataTwo: req.body.dataTwo,
+      time: req.body.time
     })
     .then(dbPost => {
       res.json(dbPost)
